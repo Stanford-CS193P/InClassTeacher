@@ -22,6 +22,7 @@
 		5CAA0C3918BEFF0A00F3829A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CAA0C1818BEFF0A00F3829A /* UIKit.framework */; };
 		5CAA0C4118BEFF0A00F3829A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5CAA0C3F18BEFF0A00F3829A /* InfoPlist.strings */; };
 		5CAA0C4318BEFF0A00F3829A /* InClassTeacherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA0C4218BEFF0A00F3829A /* InClassTeacherTests.m */; };
+		5CAA0C4D18BEFFA000F3829A /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CAA0C4C18BEFFA000F3829A /* MultipeerConnectivity.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		5CAA0C3E18BEFF0A00F3829A /* InClassTeacherTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InClassTeacherTests-Info.plist"; sourceTree = "<group>"; };
 		5CAA0C4018BEFF0A00F3829A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5CAA0C4218BEFF0A00F3829A /* InClassTeacherTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InClassTeacherTests.m; sourceTree = "<group>"; };
+		5CAA0C4C18BEFFA000F3829A /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CAA0C4D18BEFFA000F3829A /* MultipeerConnectivity.framework in Frameworks */,
 				5CAA0C1718BEFF0A00F3829A /* CoreGraphics.framework in Frameworks */,
 				5CAA0C1918BEFF0A00F3829A /* UIKit.framework in Frameworks */,
 				5CAA0C1518BEFF0A00F3829A /* Foundation.framework in Frameworks */,
@@ -103,6 +106,7 @@
 		5CAA0C1318BEFF0A00F3829A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5CAA0C4C18BEFFA000F3829A /* MultipeerConnectivity.framework */,
 				5CAA0C1418BEFF0A00F3829A /* Foundation.framework */,
 				5CAA0C1618BEFF0A00F3829A /* CoreGraphics.framework */,
 				5CAA0C1818BEFF0A00F3829A /* UIKit.framework */,
