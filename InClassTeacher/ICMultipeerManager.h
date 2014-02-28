@@ -12,6 +12,7 @@
 @interface ICMultipeerManager : NSObject<MCNearbyServiceBrowserDelegate, MCSessionDelegate>
 
 #define kDataReceivedFromPeerNotification @"DataReceivedFromPeer"
+#define kPeerIDKey @"PeerID"
 #define kDataKey @"Data"
 
 @end
