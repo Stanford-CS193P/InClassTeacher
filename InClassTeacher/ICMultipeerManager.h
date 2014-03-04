@@ -15,4 +15,7 @@
 #define kPeerIDKey @"PeerID"
 #define kDataKey @"Data"
 
++ (ICMultipeerManager *)sharedManager;
+- (void)sendData:(NSData *)data;
+
 @end

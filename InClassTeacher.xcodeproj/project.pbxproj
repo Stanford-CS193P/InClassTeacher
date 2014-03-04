@@ -24,6 +24,7 @@
 		5CAA0C4318BEFF0A00F3829A /* InClassTeacherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA0C4218BEFF0A00F3829A /* InClassTeacherTests.m */; };
 		5CAA0C4D18BEFFA000F3829A /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CAA0C4C18BEFFA000F3829A /* MultipeerConnectivity.framework */; };
 		5CAA0C5018BF031B00F3829A /* ICMultipeerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA0C4F18BF031B00F3829A /* ICMultipeerManager.m */; };
+		5CDBC12318C5957800C7A978 /* MCSwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDBC12218C5957800C7A978 /* MCSwipeTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,8 @@
 		5CAA0C4C18BEFFA000F3829A /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
 		5CAA0C4E18BF031B00F3829A /* ICMultipeerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICMultipeerManager.h; sourceTree = "<group>"; };
 		5CAA0C4F18BF031B00F3829A /* ICMultipeerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICMultipeerManager.m; sourceTree = "<group>"; };
+		5CDBC12118C5957800C7A978 /* MCSwipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSwipeTableViewCell.h; sourceTree = "<group>"; };
+		5CDBC12218C5957800C7A978 /* MCSwipeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCSwipeTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +128,8 @@
 				5CAA0C2418BEFF0A00F3829A /* ICAppDelegate.m */,
 				5CAA0C2618BEFF0A00F3829A /* Main_iPhone.storyboard */,
 				5CAA0C2918BEFF0A00F3829A /* Main_iPad.storyboard */,
+				5CDBC12118C5957800C7A978 /* MCSwipeTableViewCell.h */,
+				5CDBC12218C5957800C7A978 /* MCSwipeTableViewCell.m */,
 				5CAA0C2C18BEFF0A00F3829A /* ICViewController.h */,
 				5CAA0C2D18BEFF0A00F3829A /* ICViewController.m */,
 				5CAA0C4E18BF031B00F3829A /* ICMultipeerManager.h */,
@@ -264,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CAA0C2518BEFF0A00F3829A /* ICAppDelegate.m in Sources */,
+				5CDBC12318C5957800C7A978 /* MCSwipeTableViewCell.m in Sources */,
 				5CAA0C5018BF031B00F3829A /* ICMultipeerManager.m in Sources */,
 				5CAA0C2118BEFF0A00F3829A /* main.m in Sources */,
 				5CAA0C2E18BEFF0A00F3829A /* ICViewController.m in Sources */,
@@ -485,6 +491,7 @@
 				5CAA0C4818BEFF0A00F3829A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5CAA0C4918BEFF0A00F3829A /* Build configuration list for PBXNativeTarget "InClassTeacherTests" */ = {
 			isa = XCConfigurationList;
@@ -493,6 +500,7 @@
 				5CAA0C4B18BEFF0A00F3829A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -19,6 +19,24 @@
 
 @implementation ICMultipeerManager
 
+static ICMultipeerManager *peerManager = nil;
+
+- (NSMutableArray *)peers
+{
+    if (!_peers) _peers = [[NSMutableArray alloc] init];
+    return _peers;
+}
+
++ (ICMultipeerManager *)sharedManager
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        peerManager = [[ICMultipeerManager alloc] init];
+    });
+    return peerManager;
+}
+
+
 - (instancetype)init
 {
     self = [super init];
@@ -34,6 +52,21 @@
     }
     return self;
 }
+
+- (void)sendData:(NSData *)data
+{
+    NSLog(@"==============> %@", @"attempting to send data");
+    NSError *error;
+    [self.session sendData:data
+                   toPeers:self.peers
+                  withMode:MCSessionSendDataReliable
+                     error:&error];
+    
+    if (error)
+        NSLog(@"==============> %@", [error localizedDescription]);
+}
+
+#pragma mark - Multipeer browser delegate
 
 - (void)browser:(MCNearbyServiceBrowser *)browser foundPeer:(MCPeerID *)peerID withDiscoveryInfo:(NSDictionary *)info
 {
@@ -62,18 +95,8 @@
 - (void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state
 {
     if (state == MCSessionStateConnected) {
-        NSLog(@"==============> %@", @"invitation accepted");
+        NSLog(@"==============> %@", @"a friend");
         [self.peers addObject:peerID];
-        NSError *error;
-        NSData* data = [@"We're virtual friends!"
-                        dataUsingEncoding:NSUTF8StringEncoding];
-        [self.session sendData:data
-                       toPeers:@[peerID]
-                      withMode:MCSessionSendDataReliable
-                         error:&error];
-        
-        if (error)
-            NSLog(@"==============> %@", [error localizedDescription]);
     }
 }
 

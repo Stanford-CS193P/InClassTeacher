@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MCSwipeTableViewCell.h"
 
-@interface ICViewController : UIViewController
+@interface ICViewController : UIViewController<UITableViewDataSource, UITextFieldDelegate, MCSwipeTableViewCellDelegate>
 
 @end
