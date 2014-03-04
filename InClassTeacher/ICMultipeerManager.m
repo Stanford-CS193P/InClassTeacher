@@ -21,12 +21,6 @@
 
 static ICMultipeerManager *peerManager = nil;
 
-- (NSMutableArray *)peers
-{
-    if (!_peers) _peers = [[NSMutableArray alloc] init];
-    return _peers;
-}
-
 + (ICMultipeerManager *)sharedManager
 {
     static dispatch_once_t onceToken;
@@ -36,6 +30,11 @@ static ICMultipeerManager *peerManager = nil;
     return peerManager;
 }
 
+- (NSMutableArray *)peers
+{
+    if (!_peers) _peers = [[NSMutableArray alloc] init];
+    return _peers;
+}
 
 - (instancetype)init
 {

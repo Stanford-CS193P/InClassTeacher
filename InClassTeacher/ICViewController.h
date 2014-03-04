@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "MCSwipeTableViewCell.h"
 
-@interface ICViewController : UIViewController<UITableViewDataSource, UITextFieldDelegate, MCSwipeTableViewCellDelegate>
+@interface ICViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, MCSwipeTableViewCellDelegate>
 
 @end

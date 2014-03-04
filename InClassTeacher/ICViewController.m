@@ -33,7 +33,10 @@
     
     self.peerManager = [ICMultipeerManager sharedManager];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveData:) name:kDataReceivedFromPeerNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didReceiveData:)
+                                                 name:kDataReceivedFromPeerNotification
+                                               object:nil];
 }
 
 - (void)didReceiveData:(NSNotification *)notification
@@ -55,16 +58,19 @@
 #pragma mark - IBActions
 
 - (IBAction)didTapAddWordButton:(UIButton *)sender {
-    [self.words addObject:self.wordTextField.text];
-    [self.wordTableView reloadData];
-    self.wordTextField.text = @"";
+    [self addWord:self.wordTextField.text];
 }
 
-#pragma mark - Table view delegate
+#pragma mark - Table view datasource and delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.words count];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"==============> %@", @"select");
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -81,7 +87,7 @@
             cell.separatorInset = UIEdgeInsetsZero;
         }
         
-        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
         
         // Setting the background color of the cell.
         cell.contentView.backgroundColor = [UIColor whiteColor];
@@ -90,13 +96,17 @@
     }
     
     UIView *checkView = [self viewWithImageName:@"check"];
-    UIColor *greenColor = [UIColor colorWithRed:85.0 / 255.0 green:213.0 / 255.0 blue:80.0 / 255.0 alpha:1.0];
+    UIColor *greenColor = [UIColor colorWithRed:134.0 / 255.0
+                                          green:191.0 / 255.0
+                                           blue:60.0 / 255.0
+                                          alpha:1.0];
     
+    [cell.textLabel setFont:[UIFont fontWithName:@"Avenir Next" size:20.0]];
     [cell.textLabel setText:self.words[indexPath.row]];
     
     [cell setSwipeGestureWithView:checkView
                             color:greenColor
-                             mode:MCSwipeTableViewCellModeExit
+                             mode:MCSwipeTableViewCellModeSwitch
                             state:MCSwipeTableViewCellState2
                   completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
                       NSIndexPath *indexPath = [self.wordTableView indexPathForCell:cell];
@@ -107,12 +117,15 @@
                       [self.peerManager sendData:data];
                       
                       //remove from table view
-                      [self.words removeObjectAtIndex:indexPath.row];
-                      [self.wordTableView reloadData];
+                      cell.contentView.backgroundColor = greenColor;
+//                      [self.words removeObjectAtIndex:indexPath.row];
+//                      [self.wordTableView reloadData];
+                      
     }];
     
     return cell;
 }
+
 
 - (void)swipeTableViewCellDidEndSwiping:(MCSwipeTableViewCell *)cell
 {
@@ -122,12 +135,21 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    textField.text = @"";
+    if ([textField.text length] > 0) {
+        [self addWord:textField.text];
+    }
     [textField resignFirstResponder];
     return YES;
 }
 
 #pragma mark - Privates
+
+- (void)addWord:(NSString *)word
+{
+    [self.words addObject:textField.text];
+    [self.wordTableView reloadData];
+    textField.text = @"";
+}
 
 - (UIView *)viewWithImageName:(NSString *)imageName {
     UIImage *image = [UIImage imageNamed:imageName];
