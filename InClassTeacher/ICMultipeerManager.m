@@ -89,7 +89,7 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kDataReceivedFromPeerNotification
                                                         object:self
-                                                      userInfo:@{kDataKey : @{peerID : data}}];
+                                                      userInfo:@{kPeerIDKey: peerID, kDataKey : data}];
 }
 
 // Received a byte stream from remote peer
