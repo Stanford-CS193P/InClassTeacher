@@ -24,6 +24,7 @@
 		5CAA0C4318BEFF0A00F3829A /* InClassTeacherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA0C4218BEFF0A00F3829A /* InClassTeacherTests.m */; };
 		5CAA0C4D18BEFFA000F3829A /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CAA0C4C18BEFFA000F3829A /* MultipeerConnectivity.framework */; };
 		5CAA0C5018BF031B00F3829A /* ICMultipeerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA0C4F18BF031B00F3829A /* ICMultipeerManager.m */; };
+		5CC7541818C5BD92009C93D9 /* ICKeywordResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CC7541718C5BD92009C93D9 /* ICKeywordResultController.m */; };
 		5CDBC12318C5957800C7A978 /* MCSwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDBC12218C5957800C7A978 /* MCSwipeTableViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,8 @@
 		5CAA0C4C18BEFFA000F3829A /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
 		5CAA0C4E18BF031B00F3829A /* ICMultipeerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICMultipeerManager.h; sourceTree = "<group>"; };
 		5CAA0C4F18BF031B00F3829A /* ICMultipeerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICMultipeerManager.m; sourceTree = "<group>"; };
+		5CC7541618C5BD92009C93D9 /* ICKeywordResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICKeywordResultController.h; sourceTree = "<group>"; };
+		5CC7541718C5BD92009C93D9 /* ICKeywordResultController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICKeywordResultController.m; sourceTree = "<group>"; };
 		5CDBC12118C5957800C7A978 /* MCSwipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSwipeTableViewCell.h; sourceTree = "<group>"; };
 		5CDBC12218C5957800C7A978 /* MCSwipeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCSwipeTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,6 +131,8 @@
 				5CAA0C2418BEFF0A00F3829A /* ICAppDelegate.m */,
 				5CAA0C2618BEFF0A00F3829A /* Main_iPhone.storyboard */,
 				5CAA0C2918BEFF0A00F3829A /* Main_iPad.storyboard */,
+				5CC7541618C5BD92009C93D9 /* ICKeywordResultController.h */,
+				5CC7541718C5BD92009C93D9 /* ICKeywordResultController.m */,
 				5CDBC12118C5957800C7A978 /* MCSwipeTableViewCell.h */,
 				5CDBC12218C5957800C7A978 /* MCSwipeTableViewCell.m */,
 				5CAA0C2C18BEFF0A00F3829A /* ICViewController.h */,
@@ -268,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CC7541818C5BD92009C93D9 /* ICKeywordResultController.m in Sources */,
 				5CAA0C2518BEFF0A00F3829A /* ICAppDelegate.m in Sources */,
 				5CDBC12318C5957800C7A978 /* MCSwipeTableViewCell.m in Sources */,
 				5CAA0C5018BF031B00F3829A /* ICMultipeerManager.m in Sources */,

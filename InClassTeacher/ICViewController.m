@@ -146,9 +146,9 @@
 
 - (void)addWord:(NSString *)word
 {
-    [self.words addObject:textField.text];
+    [self.words addObject:word];
     [self.wordTableView reloadData];
-    textField.text = @"";
+    self.wordTextField.text = @"";
 }
 
 - (UIView *)viewWithImageName:(NSString *)imageName {
