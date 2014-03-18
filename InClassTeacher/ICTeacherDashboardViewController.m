@@ -8,10 +8,13 @@
 
 #import "ICTeacherDashboardViewController.h"
 #import "ICTopicListViewController.h"
+#import "LiveGraphView.h"
 
 @interface ICTeacherDashboardViewController ()
 
 @property (strong, nonatomic) UIPopoverController *urlPopover;
+@property (weak, nonatomic) IBOutlet LiveGraphView *generalLiveGraphView;
+@property (weak, nonatomic) IBOutlet LiveGraphView *topicLiveGraphView;
 
 @end
 
