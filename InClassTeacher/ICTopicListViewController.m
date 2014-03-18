@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Johan Ismael. All rights reserved.
 //
 
-#import "ICViewController.h"
+#import "ICTopicListViewController.h"
 #import "ICMultipeerManager.h"
 
-@interface ICViewController ()
+@interface ICTopicListViewController ()
 
 @property (strong, nonatomic) ICMultipeerManager *peerManager;
 @property (weak, nonatomic) IBOutlet UITableView *wordTableView;
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation ICViewController
+@implementation ICTopicListViewController
 
 - (NSMutableArray *)words
 {
