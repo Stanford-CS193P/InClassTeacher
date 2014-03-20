@@ -8,12 +8,12 @@
 
 #import "ICMultipeerManager.h"
 
-@interface ICMultipeerManager()
+@interface ICMultipeerManager()<NSStreamDelegate>
 
 @property (nonatomic, strong) MCPeerID *localPeerID;
 @property (nonatomic, strong) MCNearbyServiceBrowser *browser;
 @property (nonatomic, strong) MCSession *session;
-@property (nonatomic, strong) NSMutableArray *peers; //of PeerIds
+@property (nonatomic, strong) NSMutableDictionary *peers; //of PeerIds
 
 @end
 
@@ -30,9 +30,9 @@ static ICMultipeerManager *peerManager = nil;
     return peerManager;
 }
 
-- (NSMutableArray *)peers
+- (NSMutableDictionary *)peers
 {
-    if (!_peers) _peers = [[NSMutableArray alloc] init];
+    if (!_peers) _peers = [[NSMutableDictionary alloc] init];
     return _peers;
 }
 
@@ -43,6 +43,11 @@ static ICMultipeerManager *peerManager = nil;
         static NSString * const XXServiceType = @"InClass-service";
         self.localPeerID = [[MCPeerID alloc] initWithDisplayName:[[UIDevice currentDevice] name]];
         
+        self.session = [[MCSession alloc] initWithPeer:self.localPeerID
+                                      securityIdentity:nil
+                                  encryptionPreference:MCEncryptionNone];
+        self.session.delegate = self;
+        
         self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.localPeerID serviceType:XXServiceType];
         self.browser.delegate = self;
         NSLog(@"==============> %@", @"started browser");
@@ -52,17 +57,40 @@ static ICMultipeerManager *peerManager = nil;
     return self;
 }
 
+#define kBufSize 1024
 - (void)sendData:(NSData *)data
 {
-    NSLog(@"==============> %@", @"attempting to send data");
-    NSError *error;
-    [self.session sendData:data
-                   toPeers:self.peers
-                  withMode:MCSessionSendDataReliable
-                     error:&error];
+    NSLog(@"==============> %@ %@", @"attempting to send data", self.session.connectedPeers);
+    if ([self.session.connectedPeers count] == 0) return;
+//    NSError *error;
+//    [self.session sendData:data
+//                   toPeers:self.session.connectedPeers
+//                  withMode:MCSessionSendDataReliable
+//                     error:&error];
+//    
+//    if (error) {
+//        NSLog(@"ERROR: ==============> %@", [error localizedDescription]);
+//    }
     
-    if (error)
-        NSLog(@"==============> %@", [error localizedDescription]);
+    for (MCPeerID *peerID in self.peers) {
+        NSOutputStream *stream = [self.peers objectForKey:peerID];
+        
+        int offset = 0;
+        int remainingBytes = [data length];
+        const uint8_t *readBytes = [data bytes];
+        while (remainingBytes > 0) {
+            size_t bufLen = MIN(kBufSize, remainingBytes);
+            NSLog(@"remainingBytes: %d  bufLen: %zu", remainingBytes, bufLen);
+            
+            uint8_t buf[bufLen];
+            memcpy(buf, readBytes + offset, bufLen);
+            
+            offset += bufLen;
+            remainingBytes -= bufLen;
+            
+            [stream write:buf maxLength:bufLen];
+        }
+    }
 }
 
 #pragma mark - Multipeer browser delegate
@@ -70,10 +98,6 @@ static ICMultipeerManager *peerManager = nil;
 - (void)browser:(MCNearbyServiceBrowser *)browser foundPeer:(MCPeerID *)peerID withDiscoveryInfo:(NSDictionary *)info
 {
     NSLog(@"==============> %@", @"peer found");
-    self.session = [[MCSession alloc] initWithPeer:self.localPeerID
-                                  securityIdentity:nil
-                              encryptionPreference:MCEncryptionNone];
-    self.session.delegate = self;
     [browser invitePeer:peerID
               toSession:self.session
             withContext:nil
@@ -87,7 +111,7 @@ static ICMultipeerManager *peerManager = nil;
 
 - (void)session:(MCSession *)session didReceiveCertificate:(NSArray *)certificate fromPeer:(MCPeerID *)peerID certificateHandler:(void (^)(BOOL))certificateHandler
 {
-    certificateHandler(YES);
+    if (certificateHandler) certificateHandler(YES);
 }
 
 // Remote peer changed state
@@ -95,7 +119,25 @@ static ICMultipeerManager *peerManager = nil;
 {
     if (state == MCSessionStateConnected) {
         NSLog(@"==============> %@", @"a friend");
-        [self.peers addObject:peerID];
+        NSError *error;
+        NSOutputStream *stream = [session startStreamWithName:@"STREAM" toPeer:peerID error:&error];
+        stream.delegate = self;
+        [stream scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+        [stream open];
+        [self.peers setObject:stream forKey:peerID];
+    } else if (state == MCSessionStateNotConnected) {
+        NSLog(@"==============> %@", @"peer not connected");
+        NSOutputStream *stream = [self.peers objectForKey:peerID];
+        [stream removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+        [stream close];
+        stream.delegate = nil;
+        [self.peers removeObjectForKey:peerID];
+        
+//        // Try to get them back if disconnect was accidental.
+//        [self.browser invitePeer:peerID
+//                       toSession:self.session
+//                     withContext:nil
+//                         timeout:0];
     }
 }
 
@@ -112,6 +154,11 @@ static ICMultipeerManager *peerManager = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:kDataReceivedFromPeerNotification
                                                         object:self
                                                       userInfo:@{kPeerIDKey: peerID, kDataKey : data}];
+}
+
+- (void)disconnect
+{
+    [self.session disconnect];
 }
 
 // Received a byte stream from remote peer
@@ -131,6 +178,5 @@ static ICMultipeerManager *peerManager = nil;
 {
     
 }
-
 
 @end

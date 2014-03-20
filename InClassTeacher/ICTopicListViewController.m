@@ -42,17 +42,9 @@
 - (void)didReceiveData:(NSNotification *)notification
 {
     NSData *data = [[notification userInfo] valueForKey:kDataKey];
-    NSString *dataStr =
-    [[NSString alloc] initWithData:data
-                          encoding:NSUTF8StringEncoding];
-    NSArray *values = [dataStr componentsSeparatedByString:@","];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-                       self.view.backgroundColor = [UIColor colorWithRed:[values[0] floatValue]
-                                                                   green:[values[1] floatValue]
-                                                                    blue:[values[2] floatValue]
-                                                                   alpha:1.0];
-                   });
+    NSString *dataStr = [[NSString alloc] initWithData:data
+                                              encoding:NSUTF8StringEncoding];
+    NSLog(@"dataStr: %@", dataStr);
 }
 
 #pragma mark - IBActions

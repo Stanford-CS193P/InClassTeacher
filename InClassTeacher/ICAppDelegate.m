@@ -7,12 +7,17 @@
 //
 
 #import "ICAppDelegate.h"
+#import "ICMultipeerManager.h"
 
 @implementation ICAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+
+    // Ensure init is called and browsing starts.
+    [ICMultipeerManager sharedManager];
+    
     return YES;
 }
 							
@@ -41,6 +46,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [[ICMultipeerManager sharedManager] disconnect];
 }
 
 @end
