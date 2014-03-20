@@ -72,6 +72,16 @@ static ICMultipeerManager *peerManager = nil;
 //        NSLog(@"ERROR: ==============> %@", [error localizedDescription]);
 //    }
     
+    // TODO: make code more general
+    // (8bbcff0 has an incomplete attempt -- decided low pri at the moment)
+    //assert(kBufSize <= [data length]);
+    
+    NSMutableString *str = [[NSMutableString alloc] init];
+    for (int i = 0; i < 2000; i++) {
+        [str appendString:@"A"];
+    }
+    data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    
     for (MCPeerID *peerID in self.peers) {
         NSOutputStream *stream = [self.peers objectForKey:peerID];
         
@@ -141,6 +151,23 @@ static ICMultipeerManager *peerManager = nil;
     }
 }
 
+- (void)stream:(NSStream *)stream handleEvent:(NSStreamEvent)streamEvent
+{
+    if (streamEvent == NSStreamEventHasBytesAvailable) {
+        NSLog(@"NSStreamEventHasBytesAvailable");
+    } else if (streamEvent == NSStreamEventErrorOccurred) {
+        NSLog(@"NSStreamEventErrorOccurred");
+    } else if (streamEvent == NSStreamEventEndEncountered) {
+        NSLog(@"NSStreamEventEndEncountered");
+    } else if (streamEvent == NSStreamEventNone) {
+        NSLog(@"NSStreamEventNone");
+    } else if (streamEvent == NSStreamEventHasSpaceAvailable) {
+        NSLog(@"NSStreamEventHasSpaceAvailable");
+    } else if (streamEvent == NSStreamEventOpenCompleted) {
+        NSLog(@"NSStreamEventOpenCompleted");
+    }
+}
+
 // Received data from remote peer
 - (void)session:(MCSession *)session
  didReceiveData:(NSData *)data
@@ -149,7 +176,7 @@ static ICMultipeerManager *peerManager = nil;
     NSString *message =
     [[NSString alloc] initWithData:data
                           encoding:NSUTF8StringEncoding];
-    NSLog(@"%@", message);
+    NSLog(@"didReceiveData from peer %@", message);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kDataReceivedFromPeerNotification
                                                         object:self

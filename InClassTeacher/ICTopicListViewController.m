@@ -37,6 +37,8 @@
                                              selector:@selector(didReceiveData:)
                                                  name:kDataReceivedFromPeerNotification
                                                object:nil];
+    
+    [self addWord:@"TESTING"];
 }
 
 - (void)didReceiveData:(NSNotification *)notification
