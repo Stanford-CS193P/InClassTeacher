@@ -31,22 +31,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.peerManager = [ICMultipeerManager sharedManager];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didReceiveData:)
-                                                 name:kDataReceivedFromPeerNotification
-                                               object:nil];
+    self.peerManager = [ICMultipeerManager sharedManager];    
     
     [self addWord:@"TESTING"];
-}
-
-- (void)didReceiveData:(NSNotification *)notification
-{
-    NSData *data = [[notification userInfo] valueForKey:kDataKey];
-    NSString *dataStr = [[NSString alloc] initWithData:data
-                                              encoding:NSUTF8StringEncoding];
-    NSLog(@"dataStr: %@", dataStr);
 }
 
 #pragma mark - IBActions

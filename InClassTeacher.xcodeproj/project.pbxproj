@@ -27,6 +27,8 @@
 		5CC58E8B18D7E53F002FFF7C /* LiveGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CC58E8A18D7E53F002FFF7C /* LiveGraphView.m */; };
 		5CC58E8E18D7F62E002FFF7C /* ICTeacherDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CC58E8D18D7F62E002FFF7C /* ICTeacherDashboardViewController.m */; };
 		5CDBC12318C5957800C7A978 /* MCSwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CDBC12218C5957800C7A978 /* MCSwipeTableViewCell.m */; };
+		5CE03F2B18DB776B0036A61F /* TimestampedDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE03F2A18DB776B0036A61F /* TimestampedDouble.m */; };
+		5CE03F2E18DB7A3E0036A61F /* TaggedTimestampedDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE03F2D18DB7A3E0036A61F /* TaggedTimestampedDouble.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,10 @@
 		5CC58E8D18D7F62E002FFF7C /* ICTeacherDashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICTeacherDashboardViewController.m; sourceTree = "<group>"; };
 		5CDBC12118C5957800C7A978 /* MCSwipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSwipeTableViewCell.h; sourceTree = "<group>"; };
 		5CDBC12218C5957800C7A978 /* MCSwipeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCSwipeTableViewCell.m; sourceTree = "<group>"; };
+		5CE03F2918DB776B0036A61F /* TimestampedDouble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimestampedDouble.h; sourceTree = "<group>"; };
+		5CE03F2A18DB776B0036A61F /* TimestampedDouble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimestampedDouble.m; sourceTree = "<group>"; };
+		5CE03F2C18DB7A3E0036A61F /* TaggedTimestampedDouble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaggedTimestampedDouble.h; sourceTree = "<group>"; };
+		5CE03F2D18DB7A3E0036A61F /* TaggedTimestampedDouble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaggedTimestampedDouble.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +183,10 @@
 		5CC58E8618D7E525002FFF7C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5CE03F2918DB776B0036A61F /* TimestampedDouble.h */,
+				5CE03F2A18DB776B0036A61F /* TimestampedDouble.m */,
+				5CE03F2C18DB7A3E0036A61F /* TaggedTimestampedDouble.h */,
+				5CE03F2D18DB7A3E0036A61F /* TaggedTimestampedDouble.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -311,7 +321,9 @@
 				5CC58E8B18D7E53F002FFF7C /* LiveGraphView.m in Sources */,
 				5CAA0C5018BF031B00F3829A /* ICMultipeerManager.m in Sources */,
 				5CAA0C2118BEFF0A00F3829A /* main.m in Sources */,
+				5CE03F2B18DB776B0036A61F /* TimestampedDouble.m in Sources */,
 				5CAA0C2E18BEFF0A00F3829A /* ICTopicListViewController.m in Sources */,
+				5CE03F2E18DB7A3E0036A61F /* TaggedTimestampedDouble.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,8 +465,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InClassTeacher/InClassTeacher-Prefix.pch";
 				INFOPLIST_FILE = "InClassTeacher/InClassTeacher-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -469,8 +482,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InClassTeacher/InClassTeacher-Prefix.pch";
 				INFOPLIST_FILE = "InClassTeacher/InClassTeacher-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -122,6 +122,7 @@
             }
         }];
         self.validValues = [validValues sortedArrayUsingSelector:@selector(compare:)];
+        NSLog(@"==============> %lu", (unsigned long)[validValues count]);
         self.valid = YES;
     }
 }
@@ -262,7 +263,7 @@
             offset += step;
             barSegmentAges = [[NSMutableArray alloc] init];
         }
-        CGFloat agePercentage = (self.maxAge-age)/self.maxAge;
+        CGFloat agePercentage = self.maxAge ? (self.maxAge-age)/self.maxAge : 1.0;
         [barSegmentAges addObject:@(agePercentage)];
     }
     [bars addObject:[barSegmentAges sortedArrayUsingSelector:@selector(compare:)]];

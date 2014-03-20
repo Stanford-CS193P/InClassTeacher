@@ -142,9 +142,9 @@ static ICMultipeerManager *peerManager = nil;
     //        uuid = "D7F1D237-79DC-4340-A1D9-0A23D6E6AE67";
     //    }
     
-//    [[NSNotificationCenter defaultCenter] postNotificationName:kDataReceivedFromPeerNotification
-//                                                        object:self
-//                                                      userInfo:@{kPeerIDKey: peerID, kDataKey : data}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTopicDataReceivedFromPeerNotification
+                                                        object:self
+                                                      userInfo:@{kDataKey : dict}];
 }
 
 - (void)browse
