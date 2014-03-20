@@ -57,49 +57,39 @@ static ICMultipeerManager *peerManager = nil;
     return self;
 }
 
-#define kBufSize 1024
+// Based on preliminary testing on the Stanford Visitor network,
+// sending large buffers was leading to dropped connections.
+// These random disconnects were not seen when using bluetooth.
+// So, as a precaution (and because the length of the words we'll
+// be broadcasting will be small anyways) we'll keep this buffer
+// size small.
+// TODO: revisit if this becomes an issue
+#define kBufSize 128
+
 - (void)sendData:(NSData *)data
 {
     NSLog(@"==============> %@ %@", @"attempting to send data", self.session.connectedPeers);
     if ([self.session.connectedPeers count] == 0) return;
-//    NSError *error;
-//    [self.session sendData:data
-//                   toPeers:self.session.connectedPeers
-//                  withMode:MCSessionSendDataReliable
-//                     error:&error];
-//    
-//    if (error) {
-//        NSLog(@"ERROR: ==============> %@", [error localizedDescription]);
+    
+//    NSMutableString *str = [[NSMutableString alloc] init];
+//    for (int i = 0; i < kBufSize; i++) {
+//        [str appendString:@"A"];
 //    }
+//    data = [str dataUsingEncoding:NSUTF8StringEncoding];
     
-    // TODO: make code more general
-    // (8bbcff0 has an incomplete attempt -- decided low pri at the moment)
-    //assert(kBufSize <= [data length]);
-    
-    NSMutableString *str = [[NSMutableString alloc] init];
-    for (int i = 0; i < 2000; i++) {
-        [str appendString:@"A"];
-    }
-    data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    size_t bufLen = MIN(kBufSize, [data length]);
+    NSLog(@"bufLen: %zu", bufLen);
+    uint8_t buf[bufLen];
+    // NOTE: Ignores beyond kBufSize bytes
+    [data getBytes:buf length:bufLen];
     
     for (MCPeerID *peerID in self.peers) {
-        NSOutputStream *stream = [self.peers objectForKey:peerID];
-        
-        int offset = 0;
-        int remainingBytes = [data length];
-        const uint8_t *readBytes = [data bytes];
-        while (remainingBytes > 0) {
-            size_t bufLen = MIN(kBufSize, remainingBytes);
-            NSLog(@"remainingBytes: %d  bufLen: %zu", remainingBytes, bufLen);
-            
-            uint8_t buf[bufLen];
-            memcpy(buf, readBytes + offset, bufLen);
-            
-            offset += bufLen;
-            remainingBytes -= bufLen;
-            
-            [stream write:buf maxLength:bufLen];
+        if (![self.session.connectedPeers containsObject:peerID]) {
+            NSLog(@"Peer %@ not in connected peers. So, skipping.", peerID.displayName);
         }
+        
+        NSOutputStream *stream = [self.peers objectForKey:peerID];
+        [stream write:buf maxLength:bufLen];
     }
 }
 
@@ -137,11 +127,7 @@ static ICMultipeerManager *peerManager = nil;
         [self.peers setObject:stream forKey:peerID];
     } else if (state == MCSessionStateNotConnected) {
         NSLog(@"==============> %@", @"peer not connected");
-        NSOutputStream *stream = [self.peers objectForKey:peerID];
-        [stream removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-        [stream close];
-        stream.delegate = nil;
-        [self.peers removeObjectForKey:peerID];
+        [self closeStreamForPeer:peerID];
         
 //        // Try to get them back if disconnect was accidental.
 //        [self.browser invitePeer:peerID
@@ -149,6 +135,15 @@ static ICMultipeerManager *peerManager = nil;
 //                     withContext:nil
 //                         timeout:0];
     }
+}
+
+- (void)closeStreamForPeer:(MCPeerID *)peerID
+{
+    NSOutputStream *stream = [self.peers objectForKey:peerID];
+    [stream removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [stream close];
+    stream.delegate = nil;
+    [self.peers removeObjectForKey:peerID];
 }
 
 - (void)stream:(NSStream *)stream handleEvent:(NSStreamEvent)streamEvent
