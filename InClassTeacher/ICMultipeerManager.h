@@ -17,6 +17,7 @@
 
 + (ICMultipeerManager *)sharedManager;
 - (void)sendData:(NSData *)data;
+- (void)connect;
 - (void)disconnect;
 
 @end

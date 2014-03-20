@@ -38,17 +38,21 @@ static ICMultipeerManager *peerManager = nil;
     return _peers;
 }
 
+- (MCPeerID *)localPeerID
+{
+    if (!_localPeerID) {
+        _localPeerID = [[MCPeerID alloc] initWithDisplayName:[[UIDevice currentDevice] name]];
+    }
+    return _localPeerID;
+}
+
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        self.localPeerID = [[MCPeerID alloc] initWithDisplayName:[[UIDevice currentDevice] name]];
-        
         self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.localPeerID serviceType:XXServiceType];
         self.browser.delegate = self;
-        NSLog(@"==============> %@", @"started browser");
-        
-        [self.browser startBrowsingForPeers];
+        [self connect];
     }
     return self;
 }
@@ -90,7 +94,7 @@ static ICMultipeerManager *peerManager = nil;
 {
     if ([[self.peers allKeys] containsObject:peerID]) {
         NSLog(@"Rediscovered peer %@", peerID.displayName);
-        [self closeStreamForPeer:peerID];
+        [self disconnectPeer:peerID];
     }
     
     MCSession *session = [[MCSession alloc] initWithPeer:self.localPeerID
@@ -115,7 +119,7 @@ static ICMultipeerManager *peerManager = nil;
 - (void)browser:(MCNearbyServiceBrowser *)browser lostPeer:(MCPeerID *)peerID
 {
     NSLog(@"==============> %@", @"peer lost");
-    [self closeStreamForPeer:peerID];
+    [self disconnectPeer:peerID];
 }
 
 - (void)session:(MCSession *)session didReceiveCertificate:(NSArray *)certificate fromPeer:(MCPeerID *)peerID certificateHandler:(void (^)(BOOL))certificateHandler
@@ -141,25 +145,8 @@ static ICMultipeerManager *peerManager = nil;
         
     } else if (state == MCSessionStateNotConnected) {
         NSLog(@"==============> %@", @"peer not connected");
-        [self closeStreamForPeer:peerID];
+        [self disconnectPeer:peerID];
     }
-}
-
-- (void)closeStreamForPeer:(MCPeerID *)peerID
-{
-    NSMutableDictionary *dict = [self.peers objectForKey:peerID];
-
-    NSOutputStream *stream = [dict valueForKey:@"stream"];
-    [stream removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-    [stream close];
-    stream.delegate = nil;
-    
-    NSLog(@"closing session for peer %@", peerID.displayName);
-    MCSession *session = [dict valueForKey:@"session"];
-    session.delegate = nil;
-    // TODO: more closing needed?
-    
-    [self.peers removeObjectForKey:peerID];
 }
 
 - (void)stream:(NSStream *)stream handleEvent:(NSStreamEvent)streamEvent
@@ -194,26 +181,48 @@ static ICMultipeerManager *peerManager = nil;
                                                       userInfo:@{kPeerIDKey: peerID, kDataKey : data}];
 }
 
+- (void)connect
+{
+    NSLog(@"==============> %@", @"started browser");
+    [self.browser startBrowsingForPeers];
+}
+
 - (void)disconnect
 {
+    NSLog(@"disconnecting teacher app...");
+    
+    [self.browser stopBrowsingForPeers];
+    
+    for (MCPeerID *peerID in [self.peers allKeys]) {
+        [self disconnectPeer:peerID];
+    }
+}
+
+- (void)disconnectPeer:(MCPeerID *)peerID
+{
+    NSMutableDictionary *dict = [self.peers objectForKey:peerID];
+    
+    NSOutputStream *stream = [dict valueForKey:@"stream"];
+    [stream removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [stream close];
+    stream.delegate = nil;
+    
+    NSLog(@"closing session for peer %@", peerID.displayName);
+    MCSession *session = [dict valueForKey:@"session"];
+    [session disconnect];
+    session.delegate = nil;
+    // TODO: more closing needed?
+    
+    [self.peers removeObjectForKey:peerID];
 }
 
 // Received a byte stream from remote peer
-- (void)session:(MCSession *)session didReceiveStream:(NSInputStream *)stream withName:(NSString *)streamName fromPeer:(MCPeerID *)peerID
-{
-    
-}
+- (void)session:(MCSession *)session didReceiveStream:(NSInputStream *)stream withName:(NSString *)streamName fromPeer:(MCPeerID *)peerID { }
 
 // Start receiving a resource from remote peer
-- (void)session:(MCSession *)session didStartReceivingResourceWithName:(NSString *)resourceName fromPeer:(MCPeerID *)peerID withProgress:(NSProgress *)progress
-{
-    
-}
+- (void)session:(MCSession *)session didStartReceivingResourceWithName:(NSString *)resourceName fromPeer:(MCPeerID *)peerID withProgress:(NSProgress *)progress { }
 
 // Finished receiving a resource from remote peer and saved the content in a temporary location - the app is responsible for moving the file to a permanent location within its sandbox
-- (void)session:(MCSession *)session didFinishReceivingResourceWithName:(NSString *)resourceName fromPeer:(MCPeerID *)peerID atURL:(NSURL *)localURL withError:(NSError *)error
-{
-    
-}
+- (void)session:(MCSession *)session didFinishReceivingResourceWithName:(NSString *)resourceName fromPeer:(MCPeerID *)peerID atURL:(NSURL *)localURL withError:(NSError *)error { }
 
 @end
