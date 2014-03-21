@@ -171,7 +171,7 @@
     if (object) {
         while ([self.timeline count] >= self.maxTimelinePoints) [self.timeline removeLastObject];
         [self.timeline insertObject:object atIndex:0];
-        if (self.pendingTag) {
+        if (self.pendingTag && ([object doubleValue] > self.minValue) && ([object doubleValue] < self.maxValue)) {
             [self.timeline insertObject:self.pendingTag atIndex:0];
             self.pendingTag = nil;
         }
@@ -209,12 +209,13 @@
 {
     CGFloat barSegmentWidth = CGRectGetWidth(self.bounds)/self.bars;
     CGFloat barSegmentHeight = [self maxBarSegmentHeight];
+    if (!barSegmentHeight) return;
     if (barSegmentHeight > barSegmentWidth) {
         barSegmentHeight = barSegmentWidth;
     }
     CGRect barSegmentRect = CGRectMake(0, CGRectGetMaxX(self.bounds), barSegmentWidth, barSegmentHeight);
-    CGFloat hue = 0.3;
-    CGFloat hueStep = -0.3/self.bars;
+    CGFloat hue = 0;
+    CGFloat hueStep = 0.3/self.bars;
     
     for (NSArray *ages in [self barsByAge]) {
         barSegmentRect.origin.y = CGRectGetMaxY(self.bounds) - [ages count]*barSegmentHeight;
@@ -290,6 +291,8 @@
 - (CGFloat)maxBarSegmentHeight
 {
     double step = (self.maxValue - self.minValue) / self.bars;
+    if (!step) return 0;
+
     double offset = step;
     int maxBarHeight = 0;
     int barHeight = 0;
@@ -334,20 +337,10 @@
     [self invalidate];
 }
 
-- (NSString *)extractTagFromValue:(id)value
-{
-    if ([value respondsToSelector:@selector(tag)]) {
-        return [(id <AgeableValue>)value tag];
-    } else {
-        return nil;
-    }
-}
-
 // this is the primitive value setter
 - (void)setObject:(id)value forKeyedSubscript:(id <NSCopying>)key
 {
     self.data[key] = value;
-    [self tag:[self extractTagFromValue:value]];
     [self invalidate];
 }
 
@@ -369,8 +362,7 @@
 - (void)clearAllValues
 {
     [self.data removeAllObjects];
-    self.maxValueSet = NO;
-    self.minValueSet = NO;
+    [self.timeline removeAllObjects];
     [self invalidate];
 }
 

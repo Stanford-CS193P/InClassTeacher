@@ -17,6 +17,8 @@
 @property (strong, nonatomic) UIPopoverController *urlPopover;
 @property (weak, nonatomic) IBOutlet LiveGraphView *generalLiveGraphView;
 @property (weak, nonatomic) IBOutlet LiveGraphView *topicLiveGraphView;
+@property (weak, nonatomic) IBOutlet UILabel *topicLabel;
+
 @property (strong, nonatomic) ICMultipeerManager *peerManager;
 
 @end
@@ -84,6 +86,20 @@
                                              selector:@selector(didReceiveTopicData:)
                                                  name:kTopicDataReceivedFromPeerNotification
                                                object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didSendTopic:)
+                                                 name:kRawDataSentToPeers
+                                               object:nil];
+}
+
+- (void)didSendTopic:(NSNotification *)notification
+{
+    NSData *data = notification.userInfo[kRawDataSentToPeersDataKey];
+    NSString *tag = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.generalLiveGraphView tag:tag];
+    });
 }
 
 - (void)didReceiveGeneralData:(NSNotification *)notification
@@ -91,7 +107,9 @@
     NSDictionary *dict = [[notification userInfo] valueForKey:kDataKey];
     TimestampedDouble *timedValue = [[TaggedTimestampedDouble alloc] initWithCreationDate:dict[@"time"]
                                                                                    Double:[dict[@"rating"] doubleValue]];
-    self.generalLiveGraphView[dict[@"peerIDDisplayName"]] = timedValue;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.generalLiveGraphView[dict[@"peerIDDisplayName"]] = timedValue;
+    });
 }
 
 - (void)didReceiveTopicData:(NSNotification *)notification
@@ -100,8 +118,16 @@
     TaggedTimestampedDouble *taggedTimeValue = [[TaggedTimestampedDouble alloc] initWithCreationDate:dict[@"time"]
                                                                                               Double:[dict[@"rating"] doubleValue]
                                                                                                  Tag:dict[@"text"]];
-    self.topicLiveGraphView[dict[@"peerIDDisplayName"]] = taggedTimeValue;
-    [self.generalLiveGraphView tag:dict[@"text"]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *topic = taggedTimeValue.tag;
+        if (![self.topicLabel.text isEqualToString:topic]) {
+            [self.topicLiveGraphView clearAllValues];
+            self.topicLabel.text = topic;
+        }
+        
+        self.topicLiveGraphView[dict[@"peerIDDisplayName"]] = taggedTimeValue;
+        self.generalLiveGraphView[dict[@"peerIDDisplayName"]] = taggedTimeValue;
+    });
 }
 
 @end

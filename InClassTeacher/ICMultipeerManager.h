@@ -11,6 +11,8 @@
 
 @interface ICMultipeerManager : NSObject<MCNearbyServiceBrowserDelegate, MCSessionDelegate>
 
+#define kRawDataSentToPeers @"RawDataSentToPeers"
+#define kRawDataSentToPeersDataKey @"Data"
 #define kGeneralDataReceivedFromPeerNotification @"GeneralDataReceivedFromPeer"
 #define kTopicDataReceivedFromPeerNotification @"TopicDataReceivedFromPeer"
 #define kPeerIDKey @"PeerID"

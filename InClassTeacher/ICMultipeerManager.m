@@ -71,6 +71,10 @@ static ICMultipeerManager *peerManager = nil;
                          withMode:MCSessionSendDataReliable
                             error:&error]) {
                 NSLog(@"[Error] %@", error);
+            } else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kRawDataSentToPeers
+                                                                    object:self
+                                                                  userInfo:@{kRawDataSentToPeersDataKey : data}];
             }
         });
     }

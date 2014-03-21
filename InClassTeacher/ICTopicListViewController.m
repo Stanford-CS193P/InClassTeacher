@@ -20,6 +20,8 @@
 
 @implementation ICTopicListViewController
 
+#define WORDS_USER_DEFAULT @"ICTopicListViewController_words"
+
 - (NSMutableArray *)words
 {
     if (!_words) _words = [[NSMutableArray alloc] init];
@@ -31,9 +33,14 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.peerManager = [ICMultipeerManager sharedManager];    
+    self.peerManager = [ICMultipeerManager sharedManager];
     
-    [self addWord:@"TESTING"];
+    self.words = [[[NSUserDefaults standardUserDefaults] arrayForKey:WORDS_USER_DEFAULT] mutableCopy];
+    if ([self.words count]) {
+        [self.wordTableView reloadData];
+    } else {
+        [self addWord:@"TESTING"];
+    }
 }
 
 #pragma mark - IBActions
@@ -128,6 +135,8 @@
 - (void)addWord:(NSString *)word
 {
     [self.words addObject:word];
+    [[NSUserDefaults standardUserDefaults] setObject:self.words forKey:WORDS_USER_DEFAULT];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [self.wordTableView reloadData];
     self.wordTextField.text = @"";
 }

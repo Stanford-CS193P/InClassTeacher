@@ -88,22 +88,33 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s6o-OA-XeX" userLabel="General Livegraph" customClass="LiveGraphView">
                                 <rect key="frame" x="0.0" y="64" width="768" height="480"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.99991685149999998" green="0.96811670059999999" blue="0.13489291070000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lEo-rx-csj" userLabel="Topic Livegraph" customClass="LiveGraphView">
                                 <rect key="frame" x="0.0" y="544" width="768" height="480"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Topic" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3Z-4p-MAm">
+                                <rect key="frame" x="20" y="564" width="41" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="OcU-3U-aAZ" firstAttribute="top" secondItem="lEo-rx-csj" secondAttribute="bottom" id="5F6-du-353"/>
                             <constraint firstItem="s6o-OA-XeX" firstAttribute="height" secondItem="lEo-rx-csj" secondAttribute="height" id="AUZ-hR-QIB"/>
                             <constraint firstItem="s6o-OA-XeX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Jzw-Gh-6vT"/>
+                            <constraint firstItem="lEo-rx-csj" firstAttribute="top" secondItem="Z3Z-4p-MAm" secondAttribute="top" constant="-20" id="Kw8-Jl-NR6"/>
                             <constraint firstItem="lEo-rx-csj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="QXG-gG-Baa"/>
                             <constraint firstAttribute="trailing" secondItem="s6o-OA-XeX" secondAttribute="trailing" id="Tgz-LZ-XrE"/>
                             <constraint firstItem="GJC-vD-i0m" firstAttribute="top" secondItem="le2-hV-e5p" secondAttribute="bottom" id="WfO-kg-lmD"/>
+                            <constraint firstItem="lEo-rx-csj" firstAttribute="leading" secondItem="Z3Z-4p-MAm" secondAttribute="leading" constant="-20" id="ao9-bT-Y6E"/>
                             <constraint firstItem="s6o-OA-XeX" firstAttribute="top" secondItem="GJC-vD-i0m" secondAttribute="bottom" id="eC0-gd-zaM"/>
                             <constraint firstItem="lEo-rx-csj" firstAttribute="top" secondItem="s6o-OA-XeX" secondAttribute="bottom" id="iIN-Z8-Zn9"/>
                             <constraint firstAttribute="trailing" secondItem="lEo-rx-csj" secondAttribute="trailing" id="pLN-8r-vu7"/>
@@ -113,12 +124,13 @@
                     </view>
                     <connections>
                         <outlet property="generalLiveGraphView" destination="s6o-OA-XeX" id="fL2-ox-XhL"/>
+                        <outlet property="topicLabel" destination="Z3Z-4p-MAm" id="QHd-Er-Y2U"/>
                         <outlet property="topicLiveGraphView" destination="lEo-rx-csj" id="fd7-gs-WI8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-332" y="82"/>
+            <point key="canvasLocation" x="211" y="85"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
