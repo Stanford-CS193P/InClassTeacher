@@ -20,6 +20,7 @@
 @property (readonly, nonatomic) NSAttributedString *attributedStringForUntaggedTimelinePoint;
 @property (readonly, nonatomic) NSAttributedString *attributedStringForTaggedTimelinePoint;
 @property (readonly, nonatomic) NSUInteger maxTimelinePoints;
+@property (nonatomic, strong) NSString *pendingTag;
 @end
 
 @implementation LiveGraphView
@@ -144,21 +145,37 @@
 
 - (void)update:(NSTimer *)timer
 {
-    if (self.maxAge) [self invalidate];
-    [self addToTimeline:@([[self.validValues valueForKeyPath:@"@avg.doubleValue"] doubleValue])];
+    [self invalidate];
+    if ([self.validValues count]) {
+        [self addToTimeline:@([[self.validValues valueForKeyPath:@"@avg.doubleValue"] doubleValue])];
+    } else {
+        [self addToTimeline:@(self.minValue-1)];
+    }
 }
 
 #pragma mark Timeline
 
 - (void)tag:(NSString *)tag
 {
-    [self addToTimeline:tag];
+    for (id object in self.timeline) {
+        if ([tag isEqual:object]) return;
+        if ([object isKindOfClass:[NSString class]]) {
+            break;
+        }
+    }
+    self.pendingTag = tag;
 }
 
 - (void)addToTimeline:(id)object
 {
-    [self.timeline insertObject:object atIndex:0];
-    while ([self.timeline count] > self.maxTimelinePoints) [self.timeline removeLastObject];
+    if (object) {
+        while ([self.timeline count] >= self.maxTimelinePoints) [self.timeline removeLastObject];
+        [self.timeline insertObject:object atIndex:0];
+        if (self.pendingTag) {
+            [self.timeline insertObject:self.pendingTag atIndex:0];
+            self.pendingTag = nil;
+        }
+    }
 }
 
 - (NSUInteger)maxTimelinePoints
@@ -317,9 +334,20 @@
     [self invalidate];
 }
 
+- (NSString *)extractTagFromValue:(id)value
+{
+    if ([value respondsToSelector:@selector(tag)]) {
+        return [(id <AgeableValue>)value tag];
+    } else {
+        return nil;
+    }
+}
+
+// this is the primitive value setter
 - (void)setObject:(id)value forKeyedSubscript:(id <NSCopying>)key
 {
     self.data[key] = value;
+    [self tag:[self extractTagFromValue:value]];
     [self invalidate];
 }
 

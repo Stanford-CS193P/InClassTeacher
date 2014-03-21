@@ -36,8 +36,18 @@
     _topicLiveGraphView.bars = 5; //should not be a constant
     _topicLiveGraphView.maxAge = 0.0;
     _topicLiveGraphView.updateInterval = 1.0;
-    _topicLiveGraphView.minValue = 0.0;
-    _topicLiveGraphView.maxValue = 5.0;    
+    _topicLiveGraphView.minValue = -1;
+    _topicLiveGraphView.maxValue = 5;
+}
+
+- (void)setGeneralLiveGraphView:(LiveGraphView *)generalLiveGraphView
+{
+    _generalLiveGraphView = generalLiveGraphView;
+    _generalLiveGraphView.bars = 5;
+    _generalLiveGraphView.maxAge = 0;
+    _generalLiveGraphView.updateInterval = 1.0;
+    _generalLiveGraphView.minValue = -1;
+    _generalLiveGraphView.maxValue = 5;
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
@@ -81,7 +91,7 @@
     NSDictionary *dict = [[notification userInfo] valueForKey:kDataKey];
     TimestampedDouble *timedValue = [[TaggedTimestampedDouble alloc] initWithCreationDate:dict[@"time"]
                                                                                    Double:[dict[@"rating"] doubleValue]];
-    [self.generalLiveGraphView addValue:timedValue];
+    self.generalLiveGraphView[dict[@"peerIDDisplayName"]] = timedValue;
 }
 
 - (void)didReceiveTopicData:(NSNotification *)notification
@@ -90,7 +100,8 @@
     TaggedTimestampedDouble *taggedTimeValue = [[TaggedTimestampedDouble alloc] initWithCreationDate:dict[@"time"]
                                                                                               Double:[dict[@"rating"] doubleValue]
                                                                                                  Tag:dict[@"text"]];
-    [self.topicLiveGraphView addValue:taggedTimeValue];
+    self.topicLiveGraphView[dict[@"peerIDDisplayName"]] = taggedTimeValue;
+    [self.generalLiveGraphView tag:dict[@"text"]];
 }
 
 @end

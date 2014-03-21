@@ -51,4 +51,5 @@
 - (NSComparisonResult)compare:(id)otherObject;
 @optional
 - (NSTimeInterval)age;
+- (NSString *)tag;
 @end
