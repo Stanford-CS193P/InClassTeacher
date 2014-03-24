@@ -9,7 +9,7 @@
 #import "ICTeacherDashboardViewController.h"
 #import "ICTopicListViewController.h"
 #import "LiveGraphView.h"
-#import "ICMultipeerManager.h"
+#import "ICSRemoteClient.h"
 #import "TaggedTimestampedDouble.h"
 
 @interface ICTeacherDashboardViewController ()
@@ -19,16 +19,16 @@
 @property (weak, nonatomic) IBOutlet LiveGraphView *topicLiveGraphView;
 @property (weak, nonatomic) IBOutlet UILabel *topicLabel;
 
-@property (strong, nonatomic) ICMultipeerManager *peerManager;
+@property (strong, nonatomic) ICSRemoteClient *peerManager;
 
 @end
 
 @implementation ICTeacherDashboardViewController
 
-- (ICMultipeerManager *)peerManager
+- (ICSRemoteClient *)peerManager
 {
     if (!_peerManager)
-        _peerManager = [ICMultipeerManager sharedManager];
+        _peerManager = [ICSRemoteClient sharedManager];
     return _peerManager;
 }
 
@@ -95,8 +95,8 @@
 
 - (void)didSendTopic:(NSNotification *)notification
 {
-    NSData *data = notification.userInfo[kRawDataSentToPeersDataKey];
-    NSString *tag = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSDictionary *data = notification.userInfo[kRawDataSentToPeersDataKey];
+    NSString *tag = [data objectForKey:@"conceptName"];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.generalLiveGraphView tag:tag];
     });

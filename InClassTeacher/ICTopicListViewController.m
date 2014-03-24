@@ -7,11 +7,11 @@
 //
 
 #import "ICTopicListViewController.h"
-#import "ICMultipeerManager.h"
+#import "ICSRemoteClient.h"
 
 @interface ICTopicListViewController ()
 
-@property (strong, nonatomic) ICMultipeerManager *peerManager;
+@property (strong, nonatomic) ICSRemoteClient *peerManager;
 @property (weak, nonatomic) IBOutlet UITableView *wordTableView;
 @property (strong, nonatomic) NSMutableArray *words; //of strings
 @property (weak, nonatomic) IBOutlet UITextField *wordTextField;
@@ -33,7 +33,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.peerManager = [ICMultipeerManager sharedManager];
+    self.peerManager = [ICSRemoteClient sharedManager];
     
     self.words = [[[NSUserDefaults standardUserDefaults] arrayForKey:WORDS_USER_DEFAULT] mutableCopy];
     if ([self.words count]) {
@@ -100,9 +100,7 @@
                       NSIndexPath *indexPath = [self.wordTableView indexPathForCell:cell];
                       
                       //Send data to peers
-                      NSData* data = [self.words[indexPath.row]
-                                      dataUsingEncoding:NSUTF8StringEncoding];
-                      [self.peerManager sendData:data];
+                      [self.peerManager sendEvent:@"CreateConcept" withData:@{@"conceptName": self.words[indexPath.row]}];
                       
                       //remove from table view
                       cell.contentView.backgroundColor = greenColor;

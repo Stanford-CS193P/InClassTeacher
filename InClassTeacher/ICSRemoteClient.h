@@ -9,18 +9,24 @@
 #import <Foundation/Foundation.h>
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
 
-@interface ICMultipeerManager : NSObject<MCNearbyServiceBrowserDelegate, MCSessionDelegate>
+@interface ICSRemoteClient : NSObject
+
+#define kServer @"107.170.218.132"
+// Dev is 1337, Prod is 80
+#define kServerPort 80
+#define kMaxNumRetries 3
+#define kRetryIntervalInSecs 10
 
 #define kRawDataSentToPeers @"RawDataSentToPeers"
 #define kRawDataSentToPeersDataKey @"Data"
 #define kGeneralDataReceivedFromPeerNotification @"GeneralDataReceivedFromPeer"
+// No longer used w/latest iteration...
 #define kTopicDataReceivedFromPeerNotification @"TopicDataReceivedFromPeer"
-#define kPeerIDKey @"PeerID"
 #define kDataKey @"Data"
 
-+ (ICMultipeerManager *)sharedManager;
-- (void)sendData:(NSData *)data;
-- (void)browse;
++ (ICSRemoteClient *)sharedManager;
+- (void)sendEvent:(NSString *)event withData:(NSDictionary *)dict;
+- (void)connect;
 - (void)disconnect;
 
 @end
