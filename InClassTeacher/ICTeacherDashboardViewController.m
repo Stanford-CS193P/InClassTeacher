@@ -16,10 +16,8 @@
 
 @property (strong, nonatomic) UIPopoverController *urlPopover;
 @property (weak, nonatomic) IBOutlet LiveGraphView *generalLiveGraphView;
-@property (weak, nonatomic) IBOutlet LiveGraphView *topicLiveGraphView;
-@property (weak, nonatomic) IBOutlet UILabel *topicLabel;
-
 @property (strong, nonatomic) ICSRemoteClient *peerManager;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 
 @end
 
@@ -30,16 +28,6 @@
     if (!_peerManager)
         _peerManager = [ICSRemoteClient sharedManager];
     return _peerManager;
-}
-
-- (void)setTopicLiveGraphView:(LiveGraphView *)liveGraphView
-{
-    _topicLiveGraphView = liveGraphView;
-    _topicLiveGraphView.bars = 5; //should not be a constant
-    _topicLiveGraphView.maxAge = 0.0;
-    _topicLiveGraphView.updateInterval = 1.0;
-    _topicLiveGraphView.minValue = -1;
-    _topicLiveGraphView.maxValue = 5;
 }
 
 - (void)setGeneralLiveGraphView:(LiveGraphView *)generalLiveGraphView
@@ -76,6 +64,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    // This is used for handling the case in which the toolbar was not instantiated
+    // when `setSplitViewBarButtonItem` was called.
+    [self addSplitViewBarButtonItemToToolbar:self.splitViewBarButtonItem
+             andRemoveSplitViewBarButtonItem:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveGeneralData:)
@@ -119,15 +112,34 @@
                                                                                               Double:[dict[@"rating"] doubleValue]
                                                                                                  Tag:dict[@"text"]];
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *topic = taggedTimeValue.tag;
-        if (![self.topicLabel.text isEqualToString:topic]) {
-            [self.topicLiveGraphView clearAllValues];
-            self.topicLabel.text = topic;
-        }
-        
-        self.topicLiveGraphView[dict[@"peerIDDisplayName"]] = taggedTimeValue;
         self.generalLiveGraphView[dict[@"peerIDDisplayName"]] = taggedTimeValue;
     });
+}
+
+#pragma mark - Split View
+
+// This method removes any old split view bar button from the toolbar and adds the new one.
+//
+// Note: This should be considered part of the setter for `splitViewBarButtonItem`. The reason
+// that it is separated is so that it can be called in `viewDidLoad` (to ensure that the
+// toolbar buttons are set up properly even if the toolbar was nil when the setter was first called).
+- (void)addSplitViewBarButtonItemToToolbar:(UIBarButtonItem *)splitViewBarButtonItemToAdd
+           andRemoveSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItemToRemove
+{
+    NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
+    if (splitViewBarButtonItemToRemove) [toolbarItems removeObject:splitViewBarButtonItemToRemove];
+    if (splitViewBarButtonItemToAdd) [toolbarItems insertObject:splitViewBarButtonItemToAdd atIndex:0];
+    self.toolbar.items = toolbarItems;
+}
+
+- (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem
+{
+    // Only update `splitViewBarButtonItem` if necessary
+    if (splitViewBarButtonItem != _splitViewBarButtonItem) {
+        [self addSplitViewBarButtonItemToToolbar:splitViewBarButtonItem
+                 andRemoveSplitViewBarButtonItem:_splitViewBarButtonItem];
+        _splitViewBarButtonItem = splitViewBarButtonItem;
+    }
 }
 
 @end

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="12F45" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="nhf-CY-spx">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -13,7 +13,7 @@
                         <viewControllerLayoutGuide type="bottom" id="ZpF-kH-dax"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="0hr-dz-kIk">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="640"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="852"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New word" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X01-WZ-EnF">
@@ -26,7 +26,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="le2-Qa-rnl">
-                                <rect key="frame" x="420" y="14" width="40" height="40"/>
+                                <rect key="frame" x="260" y="14" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
                                 <state key="normal" title="Add">
@@ -37,7 +37,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4Jx-ta-gWQ">
-                                <rect key="frame" x="0.0" y="56" width="480" height="584"/>
+                                <rect key="frame" x="0.0" y="56" width="320" height="796"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -55,7 +55,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VUj-2M-4pi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1096" y="-63"/>
+            <point key="canvasLocation" x="504" y="-683"/>
         </scene>
         <!--Teacher Dashboard View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -75,62 +75,46 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Eaw-MF-feV"/>
                                 </constraints>
-                                <items>
-                                    <barButtonItem title="Topic list" id="TLQ-Bp-CIb">
-                                        <connections>
-                                            <segue destination="qdk-YW-Khj" kind="popover" identifier="Show Topic List" popoverAnchorBarButtonItem="TLQ-Bp-CIb" id="1YF-lT-aBe">
-                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                            </segue>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
+                                <items/>
                             </toolbar>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s6o-OA-XeX" userLabel="General Livegraph" customClass="LiveGraphView">
-                                <rect key="frame" x="0.0" y="64" width="768" height="480"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s6o-OA-XeX" userLabel="General Livegraph" customClass="LiveGraphView">
+                                <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lEo-rx-csj" userLabel="Topic Livegraph" customClass="LiveGraphView">
-                                <rect key="frame" x="0.0" y="544" width="768" height="480"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Topic" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3Z-4p-MAm">
-                                <rect key="frame" x="20" y="564" width="41" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="OcU-3U-aAZ" firstAttribute="top" secondItem="lEo-rx-csj" secondAttribute="bottom" id="5F6-du-353"/>
-                            <constraint firstItem="s6o-OA-XeX" firstAttribute="height" secondItem="lEo-rx-csj" secondAttribute="height" id="AUZ-hR-QIB"/>
                             <constraint firstItem="s6o-OA-XeX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Jzw-Gh-6vT"/>
-                            <constraint firstItem="lEo-rx-csj" firstAttribute="top" secondItem="Z3Z-4p-MAm" secondAttribute="top" constant="-20" id="Kw8-Jl-NR6"/>
-                            <constraint firstItem="lEo-rx-csj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="QXG-gG-Baa"/>
                             <constraint firstAttribute="trailing" secondItem="s6o-OA-XeX" secondAttribute="trailing" id="Tgz-LZ-XrE"/>
                             <constraint firstItem="GJC-vD-i0m" firstAttribute="top" secondItem="le2-hV-e5p" secondAttribute="bottom" id="WfO-kg-lmD"/>
-                            <constraint firstItem="lEo-rx-csj" firstAttribute="leading" secondItem="Z3Z-4p-MAm" secondAttribute="leading" constant="-20" id="ao9-bT-Y6E"/>
                             <constraint firstItem="s6o-OA-XeX" firstAttribute="top" secondItem="GJC-vD-i0m" secondAttribute="bottom" id="eC0-gd-zaM"/>
-                            <constraint firstItem="lEo-rx-csj" firstAttribute="top" secondItem="s6o-OA-XeX" secondAttribute="bottom" id="iIN-Z8-Zn9"/>
-                            <constraint firstAttribute="trailing" secondItem="lEo-rx-csj" secondAttribute="trailing" id="pLN-8r-vu7"/>
                             <constraint firstAttribute="trailing" secondItem="GJC-vD-i0m" secondAttribute="trailing" id="uAg-Hr-E7S"/>
                             <constraint firstItem="GJC-vD-i0m" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="vkz-wQ-6Cj"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="generalLiveGraphView" destination="s6o-OA-XeX" id="fL2-ox-XhL"/>
-                        <outlet property="topicLabel" destination="Z3Z-4p-MAm" id="QHd-Er-Y2U"/>
-                        <outlet property="topicLiveGraphView" destination="lEo-rx-csj" id="fd7-gs-WI8"/>
+                        <outlet property="toolbar" destination="GJC-vD-i0m" id="Fix-Q7-uWE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="211" y="85"/>
+            <point key="canvasLocation" x="155" y="321"/>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="34z-Jf-pql">
+            <objects>
+                <splitViewController id="nhf-CY-spx" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="detailViewController" id="1dk-0K-Z1l"/>
+                        <segue destination="qdk-YW-Khj" kind="relationship" relationship="masterViewController" id="hp8-dV-hsx"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QNT-bG-Jeq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-931" y="-317"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
