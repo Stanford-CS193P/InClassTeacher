@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C2D318818EA8C980079F9F6 /* ICNewQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2D318718EA8C980079F9F6 /* ICNewQuestionViewController.m */; };
 		5CAA0C1518BEFF0A00F3829A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CAA0C1418BEFF0A00F3829A /* Foundation.framework */; };
 		5CAA0C1718BEFF0A00F3829A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CAA0C1618BEFF0A00F3829A /* CoreGraphics.framework */; };
 		5CAA0C1918BEFF0A00F3829A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CAA0C1818BEFF0A00F3829A /* UIKit.framework */; };
@@ -54,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C2D318618EA8C980079F9F6 /* ICNewQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICNewQuestionViewController.h; sourceTree = "<group>"; };
+		5C2D318718EA8C980079F9F6 /* ICNewQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICNewQuestionViewController.m; sourceTree = "<group>"; };
 		5CAA0C1118BEFF0A00F3829A /* InClassTeacher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InClassTeacher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CAA0C1418BEFF0A00F3829A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5CAA0C1618BEFF0A00F3829A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -241,6 +244,8 @@
 				5CAA0C2D18BEFF0A00F3829A /* ICTopicListViewController.m */,
 				5CC58E8C18D7F62E002FFF7C /* ICTeacherDashboardViewController.h */,
 				5CC58E8D18D7F62E002FFF7C /* ICTeacherDashboardViewController.m */,
+				5C2D318618EA8C980079F9F6 /* ICNewQuestionViewController.h */,
+				5C2D318718EA8C980079F9F6 /* ICNewQuestionViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -424,6 +429,7 @@
 				5CAA0C5018BF031B00F3829A /* ICSRemoteClient.m in Sources */,
 				5CAA0C2118BEFF0A00F3829A /* main.m in Sources */,
 				9F9E4D9218E0C30300768F94 /* NSData+SRB64Additions.m in Sources */,
+				5C2D318818EA8C980079F9F6 /* ICNewQuestionViewController.m in Sources */,
 				5CE03F2B18DB776B0036A61F /* TimestampedDouble.m in Sources */,
 				9F9E4D9118E0C30300768F94 /* base64.c in Sources */,
 				5CAA0C2E18BEFF0A00F3829A /* ICTopicListViewController.m in Sources */,
