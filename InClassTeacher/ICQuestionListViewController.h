@@ -1,5 +1,5 @@
 //
-//  ICTopicListViewController.h
+//  ICQuestionViewController.h
 //  InClassTeacher
 //
 //  Created by Johan Ismael on 3/31/14.
@@ -8,6 +8,6 @@
 
 #import "ICSendableDataListViewController.h"
 
-@interface ICTopicListViewController : ICSendableDataListViewController
+@interface ICQuestionViewController : ICSendableDataListViewController
 
 @end

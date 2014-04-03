@@ -1,18 +1,18 @@
 //
-//  ICTopicListViewController.m
+//  ICQuestionViewController.m
 //  InClassTeacher
 //
 //  Created by Johan Ismael on 3/31/14.
 //  Copyright (c) 2014 Johan Ismael. All rights reserved.
 //
 
-#import "ICTopicListViewController.h"
+#import "ICQuestionViewController.h"
 
-@interface ICTopicListViewController ()
+@interface ICQuestionViewController ()
 
 @end
 
-@implementation ICTopicListViewController
+@implementation ICQuestionViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
