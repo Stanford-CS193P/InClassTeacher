@@ -22,11 +22,14 @@
     return _choices;
 }
 
-- (instancetype)initWithQuestionText:(NSString *)questionText
+- (instancetype)initWithTitle:(NSString *)title
+                         text:(NSString *)questionText
 {
-    return [super initWithQuestionText:questionText
-                                  type:MULTIPLE_CHOICE];
+    return [super initWithTitle:title
+                           text:questionText
+                           type:MULTIPLE_CHOICE];
 }
+
 
 - (void)addChoice:(NSString *)choiceText
 {

@@ -12,7 +12,8 @@
 
 @interface MultipleChoiceQuestion : Question
 
-- (instancetype)initWithQuestionText:(NSString *)questionText;
+- (instancetype)initWithTitle:(NSString *)title
+                         text:(NSString *)questionText;
 - (void)addChoice:(NSString *)choiceText;
 
 @end

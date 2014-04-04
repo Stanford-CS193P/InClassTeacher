@@ -10,10 +10,12 @@
 
 @implementation TrueFalseQuestion
 
-- (instancetype)initWithQuestionText:(NSString *)questionText
+- (instancetype)initWithTitle:(NSString *)title
+                         text:(NSString *)questionText
 {
-    return [super initWithQuestionText:questionText
-                                  type:TRUE_FALSE];
+    return [super initWithTitle:title
+                           text:questionText
+                           type:TRUE_FALSE];
 }
 
 - (NSDictionary *)toDictionary

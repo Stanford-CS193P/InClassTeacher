@@ -15,14 +15,16 @@ typedef enum : NSUInteger {
 
 #define kTypeKey @"type"
 #define kTextKey @"text"
+#define kTitleKey @"title"
 
 @interface Question : NSObject
 
-- (instancetype)initWithQuestionText:(NSString *)questionText
-                                type:(QuestionType)type;
+- (instancetype)initWithTitle:(NSString *)title
+                         text:(NSString *)questionText
+                         type:(QuestionType)type;
 - (NSDictionary *)toDictionary;
 
-@property (nonatomic, strong, readonly) NSString *questionText;
+@property (nonatomic, strong, readonly) NSString *text;
 @property (nonatomic, assign, readonly) QuestionType type;
 
 @end

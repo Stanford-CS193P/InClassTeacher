@@ -10,19 +10,22 @@
 
 @interface Question()
 
-@property (nonatomic, strong) NSString *questionText;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *text;
 @property (nonatomic, assign) QuestionType type;
 
 @end
 
 @implementation Question
 
-- (instancetype)initWithQuestionText:(NSString *)questionText
-                                type:(QuestionType)type
+- (instancetype)initWithTitle:(NSString *)title
+                         text:(NSString *)questionText
+                         type:(QuestionType)type
 {
     self = [super init];
     if (self) {
-        _questionText = questionText;
+        _title = title;
+        _text = questionText;
         _type = type;
     }
     return self;
@@ -30,7 +33,8 @@
 
 - (NSDictionary *)toDictionary
 {
-    return @{kTextKey: self.questionText};
+    return @{kTextKey: self.text,
+             kTitleKey: self.title};
 }
 
 @end
