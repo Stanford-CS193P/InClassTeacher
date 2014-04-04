@@ -60,7 +60,8 @@
 {
     if (!_eventToURLMap) {
         _eventToURLMap = @{
-                           @"CreateConcept": @"/InClassConcept/create"
+                           @"CreateConcept": @"/InClassConcept/create",
+                           @"CreateQuestion": @"/InClassQuestion/create"
                            };
     }
     return _eventToURLMap;

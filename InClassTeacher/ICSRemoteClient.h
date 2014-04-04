@@ -11,9 +11,9 @@
 
 @interface ICSRemoteClient : NSObject
 
-#define kServer @"107.170.218.132"
+#define kServer @"bbunge2.stanford.edu"
 // Dev is 1337, Prod is 80
-#define kServerPort 80
+#define kServerPort 1337
 #define kMaxNumRetries 3
 #define kRetryIntervalInSecs 10
 
