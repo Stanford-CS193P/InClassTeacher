@@ -55,7 +55,7 @@
 
 - (UIViewController *)detailViewControllerForRow:(NSUInteger)row
 {
-    return [[ICQuestionViewController alloc] initWithQuestionDictionary:self.data[row]];
+    return nil;
 }
 
 - (NSString *)cellIdentifier

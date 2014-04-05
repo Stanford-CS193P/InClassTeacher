@@ -12,7 +12,6 @@
 
 @interface ICQuestionViewController ()
 
-@property (nonatomic, strong) Question *question;
 @property (weak, nonatomic) IBOutlet UILabel *questionLabel;
 @property (weak, nonatomic) IBOutlet UIView *multipleChoiceView;
 @property (weak, nonatomic) IBOutlet UIView *trueFalseView;

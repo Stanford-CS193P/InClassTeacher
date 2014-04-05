@@ -11,6 +11,6 @@
 
 @interface ICQuestionViewController : UIViewController
 
-- (instancetype)initWithQuestionDictionary:(NSDictionary *)questionDictionary;
+@property (nonatomic, strong) Question *question;
 
 @end

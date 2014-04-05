@@ -75,6 +75,9 @@
                                             </subviews>
                                             <gestureRecognizers/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="rjV-Po-hhf" kind="replace" splitViewControllerTargetIndex="1" id="e4w-7I-NUi"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -88,7 +91,6 @@
                     <tabBarItem key="tabBarItem" title="Questions" id="WBL-lv-R1B"/>
                     <connections>
                         <outlet property="dataTableView" destination="rGh-dB-0vV" id="oCw-Yc-NoC"/>
-                        <segue destination="rjV-Po-hhf" kind="replace" identifier="Question Detail" splitViewControllerTargetIndex="1" id="OUk-3Z-cft"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kg8-Rd-QU3" userLabel="First Responder" sceneMemberID="firstResponder"/>

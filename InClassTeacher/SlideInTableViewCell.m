@@ -47,7 +47,6 @@
 {
     _confirmed = confirmed;
     if (confirmed) {
-        self.slidedIn = NO;
         [self removeGestureRecognizer:self.tapRecognizer];
         self.tapRecognizer = nil;
         self.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -60,12 +59,6 @@
         self.accessoryType = UITableViewCellAccessoryNone;
     }
 }
-
-
-// sent has to be stored in NSUserDefaults
-// sendable data protocol, create such a type for a topic, question implements it as well
-
-
 
 - (void)setupUpperView
 {
@@ -126,8 +119,7 @@
 {
     if (self.confirmationBlock)
         self.confirmationBlock();
-    
-    self.confirmed = YES;
+    self.slidedIn = NO;
 }
 
 @end
