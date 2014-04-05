@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Topic List View Controller-->
+        <!--Sendable Data List View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ICTopicListViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ICSendableDataListViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ddj-R3-TCJ"/>
                         <viewControllerLayoutGuide type="bottom" id="DqW-pJ-9kh"/>
@@ -50,7 +50,7 @@
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
                     <connections>
-                        <outlet property="wordTableView" destination="iNm-0w-nKB" id="rzE-Ih-dCB"/>
+                        <outlet property="dataTableView" destination="iNm-0w-nKB" id="ekl-pn-RTn"/>
                         <outlet property="wordTextField" destination="5S6-uw-TPY" id="hVm-lB-6SO"/>
                     </connections>
                 </viewController>

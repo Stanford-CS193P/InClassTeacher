@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Question.h"
 
 @interface ICQuestionViewController : UIViewController
+
+- (instancetype)initWithQuestionDictionary:(NSDictionary *)questionDictionary;
 
 @end

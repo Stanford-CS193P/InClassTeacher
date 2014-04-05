@@ -6,22 +6,21 @@
 //  Copyright (c) 2014 Johan Ismael. All rights reserved.
 //
 
+#import "ICQuestionListViewController.h"
+#import "Question.h"
+#import "ICNewQuestionViewController.h"
 #import "ICQuestionViewController.h"
+#import "QuestionFactory.h"
 
-@interface ICQuestionViewController ()
+@interface ICQuestionListViewController ()
+
+@property (strong, nonatomic) NSMutableArray *questionData; //of Questions
 
 @end
 
-@implementation ICQuestionViewController
+@implementation ICQuestionListViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+#define QUESTIONS_USER_DEFAULTS @"ICQuestionListViewController_questions"
 
 - (void)viewDidLoad
 {
@@ -29,21 +28,55 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
+- (NSString *)userDefaultsKey
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    return QUESTIONS_USER_DEFAULTS;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (NSString *)serverEventName
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    return @"CreateQuestion";
 }
-*/
+
+- (id)dataObjectFromDictionary:(NSDictionary *)dictionary
+{
+    return [QuestionFactory questionFromDictionary:dictionary];
+}
+
+#pragma mark - Table View
+
+- (void)setupCell:(UITableViewCell *)cell
+            atRow:(NSUInteger)row
+{
+    Question *question = self.data[row];
+    cell.textLabel.text = question.title;
+    cell.detailTextLabel.text = question.text;
+}
+
+- (UIViewController *)detailViewControllerForRow:(NSUInteger)row
+{
+    return [[ICQuestionViewController alloc] initWithQuestionDictionary:self.data[row]];
+}
+
+- (NSString *)cellIdentifier
+{
+    return @"Question Cell";
+}
+
+- (UITableViewCellStyle)tableViewCellStyle
+{
+    return UITableViewCellStyleSubtitle;
+}
+
+#pragma mark - IBActions
+
+- (IBAction)didSaveQuestion:(UIStoryboardSegue *)segue
+{
+    if ([segue.sourceViewController isKindOfClass:[ICNewQuestionViewController class]]) {
+        ICNewQuestionViewController *nqvc = (ICNewQuestionViewController *)segue.sourceViewController;
+        Question *newQuestion = [nqvc savedQuestion];
+        [self addElement:newQuestion];
+    }
+}
 
 @end

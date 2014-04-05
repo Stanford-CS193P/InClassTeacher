@@ -10,4 +10,7 @@
 
 @interface SlideInTableViewCell : UITableViewCell
 
+@property (nonatomic, copy) void (^confirmationBlock)(void);
+@property (assign, nonatomic) BOOL confirmed;
+
 @end

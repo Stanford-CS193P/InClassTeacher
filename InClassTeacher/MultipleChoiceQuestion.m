@@ -40,7 +40,7 @@
 {
     NSDictionary *dict = [super toDictionary];
     NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:dict];
-    [mutableDic setObject:@"MULTIPLE_CHOICE"
+    [mutableDic setObject:@(self.type)
                    forKey:kTypeKey];
     [mutableDic setObject:self.choices
                    forKey:kChoicesKey];

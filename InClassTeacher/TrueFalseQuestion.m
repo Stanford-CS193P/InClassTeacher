@@ -22,7 +22,7 @@
 {
     NSDictionary *dict = [super toDictionary];
     NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:dict];
-    [mutableDic setObject:@"TRUE_FALSE"
+    [mutableDic setObject:@(self.type)
                    forKey:kTypeKey];
     return [NSDictionary dictionaryWithDictionary:mutableDic];
 }

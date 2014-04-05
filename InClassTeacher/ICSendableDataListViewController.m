@@ -6,27 +6,25 @@
 //  Copyright (c) 2014 Johan Ismael. All rights reserved.
 //
 
-#import "ICTopicListViewController.h"
+#import "ICSendableDataListViewController.h"
 #import "ICSRemoteClient.h"
 #import "ICTeacherDashboardViewController.h"
+#import "SlideInTableViewCell.h"
+#import "SendableData.h"
 
-@interface ICTopicListViewController () <UISplitViewControllerDelegate>
+@interface ICSendableDataListViewController () <UISplitViewControllerDelegate>
 
 @property (strong, nonatomic) ICSRemoteClient *peerManager;
-@property (weak, nonatomic) IBOutlet UITableView *wordTableView;
-@property (strong, nonatomic) NSMutableArray *words; //of strings
-@property (weak, nonatomic) IBOutlet UITextField *wordTextField;
+@property (weak, nonatomic) IBOutlet UITableView *dataTableView;
 
 @end
 
-@implementation ICTopicListViewController
+@implementation ICSendableDataListViewController
 
-#define WORDS_USER_DEFAULT @"ICTopicListViewController_words"
-
-- (NSMutableArray *)words
+- (NSMutableArray *)data
 {
-    if (!_words) _words = [[NSMutableArray alloc] init];
-    return _words;
+    if (!_data) _data = [[NSMutableArray alloc] init];
+    return _data;
 }
 
 - (void)viewDidLoad
@@ -36,19 +34,37 @@
     
     self.peerManager = [ICSRemoteClient sharedManager];
     
-    self.words = [[[NSUserDefaults standardUserDefaults] arrayForKey:WORDS_USER_DEFAULT] mutableCopy];
-    if ([self.words count]) {
-        [self.wordTableView reloadData];
-    } else {
-        [self addWord:@"TESTING"];
+    NSArray *plistData = [[[NSUserDefaults standardUserDefaults] arrayForKey:[self userDefaultsKey]] mutableCopy];
+    for (NSDictionary *dic in plistData) {
+        [self.data addObject:[self dataObjectFromDictionary:dic]];
     }
+    [self.dataTableView reloadData];
+}
+
+- (id)dataObjectFromDictionary:(NSDictionary *)dictionary
+{
+    return nil;
+}
+
+- (NSString *)userDefaultsKey
+{
+    return @"";
+}
+
+//[self.peerManager sendEvent:@"CreateConcept" withData:@{@"conceptName": self.words[indexPath.row]}];
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue
+                 sender:(id)sender
+{
+    
 }
 
 #pragma mark - UISplitViewControllerDelegate
 
 - (void)awakeFromNib
 {
-    self.splitViewController.delegate = self;
+    if (!self.splitViewController.delegate)
+        self.splitViewController.delegate = self;
 }
 
 // Returns the detail view of the split view controller,
@@ -68,7 +84,7 @@
           withBarButtonItem:(UIBarButtonItem *)barButtonItem
        forPopoverController:(UIPopoverController *)pc
 {
-    barButtonItem.title = @"Topic List";
+    barButtonItem.title = @"Menu";
     id detailViewController = [self splitViewDetailWithBarButtonItem];
     [detailViewController setSplitViewBarButtonItem:barButtonItem];
 }
@@ -83,107 +99,90 @@
     [detailViewController setSplitViewBarButtonItem:nil];
 }
 
-#pragma mark - IBActions
-
-- (IBAction)didTapAddWordButton:(UIButton *)sender {
-    [self addWord:self.wordTextField.text];
-}
-
 #pragma mark - Table view datasource and delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.words count];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSLog(@"==============> %@", @"select");
+    return [self.data count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    NSString *cellIdentifier = [self cellIdentifier];
     
-    MCSwipeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    SlideInTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (!cell) {
-        cell = [[MCSwipeTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        
-        // Remove inset of iOS 7 separators.
-        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-            cell.separatorInset = UIEdgeInsetsZero;
-        }
-        
-        [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
-        
-        // Setting the background color of the cell.
-        cell.contentView.backgroundColor = [UIColor whiteColor];
-        
-        cell.delegate = self;
+        cell = [[SlideInTableViewCell alloc] initWithStyle:[self tableViewCellStyle]
+                                           reuseIdentifier:cellIdentifier];
     }
     
-    UIView *checkView = [self viewWithImageName:@"check"];
-    UIColor *greenColor = [UIColor colorWithRed:134.0 / 255.0
-                                          green:191.0 / 255.0
-                                           blue:60.0 / 255.0
-                                          alpha:1.0];
-    
-    [cell.textLabel setFont:[UIFont fontWithName:@"Avenir Next" size:20.0]];
-    [cell.textLabel setText:self.words[indexPath.row]];
-    
-    [cell setSwipeGestureWithView:checkView
-                            color:greenColor
-                             mode:MCSwipeTableViewCellModeSwitch
-                            state:MCSwipeTableViewCellState2
-                  completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-                      NSIndexPath *indexPath = [self.wordTableView indexPathForCell:cell];
-                      
-                      //Send data to peers
-                      [self.peerManager sendEvent:@"CreateConcept" withData:@{@"conceptName": self.words[indexPath.row]}];
-                      
-                      //remove from table view
-                      cell.contentView.backgroundColor = greenColor;
-//                      [self.words removeObjectAtIndex:indexPath.row];
-//                      [self.wordTableView reloadData];
-                      
+    id<SendableData> data = self.data[indexPath.row];
+    [cell setConfirmationBlock:^{
+        [self.peerManager sendEvent:[self serverEventName]
+                           withData:[data toDictionary]];
+        data.sent = YES;
+        [self persistData];
+        [self.dataTableView reloadData];
     }];
+    
+    
+    [self setupCell:cell
+              atRow:indexPath.row];
+    cell.confirmed = data.sent;
     
     return cell;
 }
 
-
-- (void)swipeTableViewCellDidEndSwiping:(MCSwipeTableViewCell *)cell
+- (void)addElement:(id)element
 {
+    [self.data addObject:element];
+    [self persistData];
+    [self.dataTableView reloadData];
 }
 
-#pragma mark - Text field delegate
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
+//This is a sledgehammer approach (replacing the whole array even for a single field) but should be fine for now
+- (void)persistData
 {
-    if ([textField.text length] > 0) {
-        [self addWord:textField.text];
+    NSMutableArray *plistData = [[NSMutableArray alloc] init];
+    for (id<SendableData> data in self.data) {
+        [plistData addObject:[data toDictionary]];
     }
-    [textField resignFirstResponder];
-    return YES;
-}
-
-#pragma mark - Privates
-
-- (void)addWord:(NSString *)word
-{
-    [self.words addObject:word];
-    [[NSUserDefaults standardUserDefaults] setObject:self.words forKey:WORDS_USER_DEFAULT];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:plistData
+                                              forKey:[self userDefaultsKey]];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [self.wordTableView reloadData];
-    self.wordTextField.text = @"";
 }
 
-- (UIView *)viewWithImageName:(NSString *)imageName {
-    UIImage *image = [UIImage imageNamed:imageName];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    imageView.contentMode = UIViewContentModeCenter;
-    return imageView;
+- (void)setupCell:(UITableViewCell *)cell
+            atRow:(NSUInteger)row
+{
+    
+}
+
+- (NSString *)cellIdentifier
+{
+    return @"Cell";
+}
+
+- (UITableViewCellStyle)tableViewCellStyle
+{
+    return UITableViewCellStyleDefault;
+}
+
+- (NSDictionary *)dataForRow:(NSUInteger)row
+{
+    return nil;
+}
+
+- (NSString *)serverEventName
+{
+    return @"";
+}
+
+- (NSString *)textForCellAtRow:(NSUInteger)row
+{
+    return @"";
 }
 
 @end

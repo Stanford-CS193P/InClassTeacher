@@ -16,6 +16,15 @@
 
 @implementation TaggedTimestampedDouble
 
++ (instancetype)taggedTimestampedDoubleFromDictionary:(NSDictionary *)dictionary
+{
+    TaggedTimestampedDouble *ttd =  [[self alloc] initWithCreationDate:dictionary[kDateKey]
+                                                                Double:0.0
+                                                                   Tag:dictionary[kTagKey]];
+    ttd.sent = [dictionary[kSentKey] boolValue];
+    return ttd;
+}
+
 - (instancetype)initWithCreationDate:(NSDate *)date
                               Double:(double)value
                                  Tag:(NSString *)tag
@@ -26,6 +35,21 @@
         _tag = tag;
     }
     return self;
+}
+
+- (instancetype)initWithTag:(NSString *)tag
+{
+    self = [super initWithDouble:0.0];
+    if (self) {
+        _tag = tag;
+    }
+    return self;
+}
+
+- (NSDictionary *)toDictionary
+{
+    return @{kTagKey: self.tag,
+             kSentKey: @(self.sent)};
 }
 
 @end

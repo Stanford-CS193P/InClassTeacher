@@ -34,7 +34,8 @@
 - (NSDictionary *)toDictionary
 {
     return @{kTextKey: self.text,
-             kTitleKey: self.title};
+             kTitleKey: self.title,
+             kSentKey: @(self.sent)};
 }
 
 @end

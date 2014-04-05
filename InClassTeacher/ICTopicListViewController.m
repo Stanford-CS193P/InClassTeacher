@@ -7,21 +7,18 @@
 //
 
 #import "ICTopicListViewController.h"
+#import "ICTeacherDashboardViewController.h"
+#import "TaggedTimestampedDouble.h"
 
 @interface ICTopicListViewController ()
+
+@property (weak, nonatomic) IBOutlet UITextField *wordTextField;
 
 @end
 
 @implementation ICTopicListViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+#define TOPICS_USER_DEFAULT @"ICTopicListViewController_topics"
 
 - (void)viewDidLoad
 {
@@ -29,21 +26,68 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
+- (NSString *)userDefaultsKey
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    return TOPICS_USER_DEFAULT;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)setupCell:(UITableViewCell *)cell
+            atRow:(NSUInteger)row
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    TaggedTimestampedDouble *ttd = self.data[row];
+    cell.textLabel.text = ttd.tag;
 }
-*/
+
+- (NSString *)serverEventName
+{
+    return @"CreateConcept";
+}
+
+- (id)dataObjectFromDictionary:(NSDictionary *)dictionary
+{
+    return [TaggedTimestampedDouble taggedTimestampedDoubleFromDictionary:dictionary];
+}
+
+#pragma mark - Table View
+
+//change key from conceptName to tag
+
+- (NSString *)cellIdentifier
+{
+    return @"Topic Cell";
+}
+
+- (UIViewController *)detailViewControllerForRow:(NSUInteger)row
+{
+    return [[ICTeacherDashboardViewController alloc] init];
+}
+
+- (UITableViewCellStyle)tableViewCellStyle
+{
+    return UITableViewCellStyleDefault;
+}
+
+#pragma mark - IBActions
+
+- (IBAction)didTapAddWordButton:(UIButton *)sender {
+    [self addElementWithTag:self.wordTextField.text];
+}
+
+#pragma mark - Text field delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if ([textField.text length] > 0) {
+        [self addElementWithTag:textField.text];
+    }
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)addElementWithTag:(NSString *)tag
+{
+    TaggedTimestampedDouble *ttd = [[TaggedTimestampedDouble alloc] initWithTag:tag];
+    [self addElement:ttd];
+}
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "ICTeacherDashboardViewController.h"
-#import "ICTopicListViewController.h"
+#import "ICSendableDataListViewController.h"
 #import "LiveGraphView.h"
 #import "ICSRemoteClient.h"
 #import "TaggedTimestampedDouble.h"
@@ -52,7 +52,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"Show Topic List"]) {
-        if ([segue.destinationViewController isKindOfClass:[ICTopicListViewController class]]) {
+        if ([segue.destinationViewController isKindOfClass:[ICSendableDataListViewController class]]) {
             if ([segue isKindOfClass:[UIStoryboardPopoverSegue class]]) {
                 self.urlPopover = ((UIStoryboardPopoverSegue *)segue).popoverController;
             }

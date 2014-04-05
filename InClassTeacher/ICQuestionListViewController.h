@@ -8,6 +8,6 @@
 
 #import "ICSendableDataListViewController.h"
 
-@interface ICQuestionViewController : ICSendableDataListViewController
+@interface ICQuestionListViewController : ICSendableDataListViewController
 
 @end

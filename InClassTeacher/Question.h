@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SendableData.h"
 
 typedef enum : NSUInteger {
     TRUE_FALSE,
@@ -16,8 +17,9 @@ typedef enum : NSUInteger {
 #define kTypeKey @"type"
 #define kTextKey @"text"
 #define kTitleKey @"title"
+#define kSentKey @"sent"
 
-@interface Question : NSObject
+@interface Question : NSObject<SendableData>
 
 - (instancetype)initWithTitle:(NSString *)title
                          text:(NSString *)questionText
@@ -26,5 +28,7 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong, readonly) NSString *text;
 @property (nonatomic, assign, readonly) QuestionType type;
+@property (nonatomic, strong, readonly) NSString *title;
+@property (nonatomic, assign) BOOL sent;
 
 @end
