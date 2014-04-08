@@ -324,25 +324,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Question" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="728" translatesAutoresizingMaskIntoConstraints="NO" id="zfI-bt-0qn">
-                                <rect key="frame" x="20" y="78" width="728" height="50"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="728" translatesAutoresizingMaskIntoConstraints="NO" id="zfI-bt-0qn">
+                                <rect key="frame" x="20" y="78" width="728" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Italic" family="Avenir Next" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="728" translatesAutoresizingMaskIntoConstraints="NO" id="QYg-C7-uxf">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="728" translatesAutoresizingMaskIntoConstraints="NO" id="QYg-C7-uxf">
                                 <rect key="frame" x="20" y="20" width="728" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="wf0-rc-7Jx"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Italic" family="Avenir Next" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jhl-nv-7kQ" userLabel="T/F view">
-                                <rect key="frame" x="20" y="160" width="728" height="244"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jhl-nv-7kQ" userLabel="T/F view">
+                                <rect key="frame" x="20" y="114" width="728" height="244"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="9aK-Gf-ASo">
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="9aK-Gf-ASo">
                                         <rect key="frame" x="20" y="108" width="688" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <segments>
@@ -351,9 +354,16 @@
                                         </segments>
                                     </segmentedControl>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="244" id="48x-4H-IZK"/>
+                                    <constraint firstItem="9aK-Gf-ASo" firstAttribute="leading" secondItem="Jhl-nv-7kQ" secondAttribute="leading" constant="20" symbolic="YES" id="Y28-gj-KEJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="9aK-Gf-ASo" secondAttribute="trailing" constant="20" symbolic="YES" id="by2-xT-e2R"/>
+                                    <constraint firstItem="9aK-Gf-ASo" firstAttribute="centerY" secondItem="Jhl-nv-7kQ" secondAttribute="centerY" id="tbW-2s-cLi"/>
+                                </constraints>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YtW-SR-YaE" userLabel="Multiple choice view">
-                                <rect key="frame" x="20" y="167" width="728" height="244"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YtW-SR-YaE" userLabel="Multiple choice view">
+                                <rect key="frame" x="20" y="114" width="728" height="297"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Choice 1" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="688" translatesAutoresizingMaskIntoConstraints="NO" id="M7k-0O-UlO">
@@ -385,10 +395,33 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="297" id="Que-D0-H5b"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Jhl-nv-7kQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="14L-uQ-mDc"/>
+                            <constraint firstAttribute="trailing" secondItem="Jhl-nv-7kQ" secondAttribute="trailing" constant="20" symbolic="YES" id="4FL-US-dtj"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Jhl-nv-7kQ" secondAttribute="trailing" constant="20" symbolic="YES" id="EH5-jV-pf9"/>
+                            <constraint firstItem="YtW-SR-YaE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="FUp-Cs-uKR"/>
+                            <constraint firstItem="YtW-SR-YaE" firstAttribute="top" secondItem="zfI-bt-0qn" secondAttribute="bottom" constant="8" symbolic="YES" id="Gp2-yb-twe"/>
+                            <constraint firstItem="zfI-bt-0qn" firstAttribute="top" secondItem="QYg-C7-uxf" secondAttribute="bottom" constant="8" symbolic="YES" id="HfK-Xu-Lt6"/>
+                            <constraint firstItem="Jhl-nv-7kQ" firstAttribute="leading" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="IWM-Xa-Q2C"/>
+                            <constraint firstItem="Jhl-nv-7kQ" firstAttribute="top" secondItem="zfI-bt-0qn" secondAttribute="bottom" constant="8" symbolic="YES" id="Nux-xk-neU"/>
+                            <constraint firstItem="YtW-SR-YaE" firstAttribute="leading" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="Ofh-HO-iXH"/>
+                            <constraint firstAttribute="trailing" secondItem="YtW-SR-YaE" secondAttribute="trailing" constant="20" symbolic="YES" id="Ufd-kX-PGk"/>
+                            <constraint firstItem="QYg-C7-uxf" firstAttribute="top" secondItem="zJS-Xz-FW5" secondAttribute="top" constant="20" symbolic="YES" id="VyV-bg-9iZ"/>
+                            <constraint firstItem="QYg-C7-uxf" firstAttribute="trailing" secondItem="zfI-bt-0qn" secondAttribute="trailing" id="Xih-cx-TQi"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zfI-bt-0qn" secondAttribute="trailing" constant="20" symbolic="YES" id="Ylo-Vg-dlq"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YtW-SR-YaE" secondAttribute="trailing" constant="20" symbolic="YES" id="d03-Zf-gwi"/>
+                            <constraint firstAttribute="trailing" secondItem="zfI-bt-0qn" secondAttribute="trailing" constant="20" symbolic="YES" id="q7I-GY-YB0"/>
+                            <constraint firstItem="zfI-bt-0qn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="r3Q-j4-UjG"/>
+                            <constraint firstItem="QYg-C7-uxf" firstAttribute="leading" secondItem="zfI-bt-0qn" secondAttribute="leading" id="sq3-YY-YYn"/>
+                            <constraint firstItem="zfI-bt-0qn" firstAttribute="leading" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="uMV-LR-Kdg"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="choice1Label" destination="M7k-0O-UlO" id="l7l-O8-UgT"/>
