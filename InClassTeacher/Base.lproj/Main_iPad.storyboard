@@ -292,7 +292,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s6o-OA-XeX" userLabel="General Livegraph" customClass="LiveGraphView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s6o-OA-XeX" userLabel="General Livegraph" customClass="LiveGraphView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -300,6 +300,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="s6o-OA-XeX" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="5C1-QY-Xej"/>
+                            <constraint firstAttribute="bottom" secondItem="s6o-OA-XeX" secondAttribute="bottom" id="9te-RE-spI"/>
                             <constraint firstItem="s6o-OA-XeX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Jzw-Gh-6vT"/>
                             <constraint firstAttribute="trailing" secondItem="s6o-OA-XeX" secondAttribute="trailing" id="Tgz-LZ-XrE"/>
                         </constraints>

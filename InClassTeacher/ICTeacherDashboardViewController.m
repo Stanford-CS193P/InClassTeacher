@@ -36,8 +36,8 @@
     _generalLiveGraphView.bars = 5;
     _generalLiveGraphView.maxAge = 0;
     _generalLiveGraphView.updateInterval = 1.0;
-    _generalLiveGraphView.minValue = -1;
-    _generalLiveGraphView.maxValue = 5;
+    _generalLiveGraphView.minValue = 0;
+    _generalLiveGraphView.maxValue = 1;
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
