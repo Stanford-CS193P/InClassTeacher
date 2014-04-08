@@ -22,6 +22,20 @@
     return _choices;
 }
 
+- (NSUInteger)numberOfChoices
+{
+    return [self.choices count];
+}
+
+- (NSString *)choiceAtIndex:(NSUInteger)index
+{
+    if (index < [self numberOfChoices]) {
+        return self.choices[index];
+    } else {
+        return nil;
+    }
+}
+
 - (instancetype)initWithTitle:(NSString *)title
                          text:(NSString *)questionText
 {

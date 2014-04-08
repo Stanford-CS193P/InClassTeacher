@@ -21,10 +21,20 @@
 
 @implementation ICSendableDataListViewController
 
+#pragma mark - Lazy instantiation
+
 - (NSMutableArray *)data
 {
     if (!_data) _data = [[NSMutableArray alloc] init];
     return _data;
+}
+
+#pragma mark - View Controller lifecycle
+
+- (void)awakeFromNib
+{
+    if (!self.splitViewController.delegate)
+        self.splitViewController.delegate = self;
 }
 
 - (void)viewDidLoad
@@ -41,57 +51,26 @@
     [self.dataTableView reloadData];
 }
 
-- (id)dataObjectFromDictionary:(NSDictionary *)dictionary
-{
-    return nil;
-}
-
-- (NSString *)userDefaultsKey
-{
-    return @"";
-}
-
 //[self.peerManager sendEvent:@"CreateConcept" withData:@{@"conceptName": self.words[indexPath.row]}];
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([sender isKindOfClass:[UITableViewCell class]]) {
+        UITableViewCell *cell = (UITableViewCell *)sender;
+        NSIndexPath *path = [self.dataTableView indexPathForCell:cell];
+        [self setupViewController:segue.destinationViewController
+                      atIndexPath:path];
+    }
+}
 
 #pragma mark - UISplitViewControllerDelegate
 
-- (void)awakeFromNib
-{
-    if (!self.splitViewController.delegate)
-        self.splitViewController.delegate = self;
-}
-
-// Returns the detail view of the split view controller,
-// as long as it has a `splitViewBarButtonItem` property.
-- (id)splitViewDetailWithBarButtonItem
-{
-    id detail = [self.splitViewController.viewControllers lastObject];
-    if (![detail respondsToSelector:@selector(setSplitViewBarButtonItem:)] ||
-        ![detail respondsToSelector:@selector(splitViewBarButtonItem)]) detail = nil;
-    return detail;
-}
-
-// When the master view controller is to be hidden, add the given `UIBarButtonItem` to the
-// current detail view.
 - (void)splitViewController:(UISplitViewController *)svc
      willHideViewController:(UIViewController *)aViewController
           withBarButtonItem:(UIBarButtonItem *)barButtonItem
        forPopoverController:(UIPopoverController *)pc
 {
-    barButtonItem.title = @"Menu";
-    id detailViewController = [self splitViewDetailWithBarButtonItem];
-    [detailViewController setSplitViewBarButtonItem:barButtonItem];
-}
-
-// When the master view controller is to be shown, remove any split view bar button item
-// from the current detail view because it is now invalid.
-- (void)splitViewController:(UISplitViewController *)svc
-     willShowViewController:(UIViewController *)aViewController
-  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
-{
-    id detailViewController = [self splitViewDetailWithBarButtonItem];
-    [detailViewController setSplitViewBarButtonItem:nil];
+    //need to implement to enable swipe gesture to bring master view
 }
 
 #pragma mark - Table view datasource and delegate
@@ -128,7 +107,7 @@
     
     
     [self setupCell:cell
-              atRow:indexPath.row];
+        atIndexPath:indexPath];
     cell.confirmed = data.sent;
     
     return cell;
@@ -154,8 +133,26 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+#pragma mark - Subclasses
+
+- (void)setupViewController:(UIViewController *)vc
+                atIndexPath:(NSIndexPath *)path
+{
+    
+}
+
+- (id)dataObjectFromDictionary:(NSDictionary *)dictionary
+{
+    return nil;
+}
+
+- (NSString *)userDefaultsKey
+{
+    return @"";
+}
+
 - (void)setupCell:(UITableViewCell *)cell
-            atRow:(NSUInteger)row
+      atIndexPath:(NSIndexPath *)path
 {
     
 }

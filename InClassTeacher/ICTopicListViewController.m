@@ -32,9 +32,9 @@
 }
 
 - (void)setupCell:(UITableViewCell *)cell
-            atRow:(NSUInteger)row
+      atIndexPath:(NSIndexPath *)path
 {
-    TaggedTimestampedDouble *ttd = self.data[row];
+    TaggedTimestampedDouble *ttd = self.data[path.row];
     cell.textLabel.text = ttd.tag;
 }
 
@@ -55,11 +55,6 @@
 - (NSString *)cellIdentifier
 {
     return @"Topic Cell";
-}
-
-- (UIViewController *)detailViewControllerForRow:(NSUInteger)row
-{
-    return [[ICTeacherDashboardViewController alloc] init];
 }
 
 - (UITableViewCellStyle)tableViewCellStyle

@@ -10,6 +10,4 @@
 
 @interface ICTeacherDashboardViewController : UIViewController
 
-@property (nonatomic, strong) UIBarButtonItem *splitViewBarButtonItem;
-
 @end

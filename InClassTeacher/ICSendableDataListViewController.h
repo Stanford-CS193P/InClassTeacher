@@ -16,14 +16,15 @@
 //To be used by subclasses
 - (void)addElement:(id)element;
 
-//To override
+//To override by subclasses
 - (NSString *)userDefaultsKey;
 - (NSString *)serverEventName;
 - (void)setupCell:(UITableViewCell *)cell
-            atRow:(NSUInteger)row;
-- (UIViewController *)detailViewControllerForRow:(NSUInteger)row;
+      atIndexPath:(NSIndexPath *)path;
 - (UITableViewCellStyle)tableViewCellStyle;
 - (NSString *)cellIdentifier;
 - (id)dataObjectFromDictionary:(NSDictionary *)dictionary;
+- (void)setupViewController:(UIViewController *)vc
+                atIndexPath:(NSIndexPath *)path;
 
 @end

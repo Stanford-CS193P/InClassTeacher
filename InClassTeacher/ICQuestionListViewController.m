@@ -46,14 +46,14 @@
 #pragma mark - Table View
 
 - (void)setupCell:(UITableViewCell *)cell
-            atRow:(NSUInteger)row
+      atIndexPath:(NSIndexPath *)path
 {
-    Question *question = self.data[row];
+    Question *question = self.data[path.row];
     cell.textLabel.text = question.title;
     cell.detailTextLabel.text = question.text;
 }
 
-- (UIViewController *)detailViewControllerForRow:(NSUInteger)row
+- (UIViewController *)viewControllerForIndexPath:(NSIndexPath *)path
 {
     return nil;
 }
@@ -76,6 +76,15 @@
         ICNewQuestionViewController *nqvc = (ICNewQuestionViewController *)segue.sourceViewController;
         Question *newQuestion = [nqvc savedQuestion];
         [self addElement:newQuestion];
+    }
+}
+
+- (void)setupViewController:(UIViewController *)vc
+                atIndexPath:(NSIndexPath *)path
+{
+    if ([vc isKindOfClass:[ICQuestionViewController class]]) {
+        ICQuestionViewController *qvc = (ICQuestionViewController *)vc;
+        qvc.question = self.data[path.row];
     }
 }
 

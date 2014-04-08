@@ -15,5 +15,6 @@
 - (instancetype)initWithTitle:(NSString *)title
                          text:(NSString *)questionText;
 - (void)addChoice:(NSString *)choiceText;
+- (NSString *)choiceAtIndex:(NSUInteger)index;
 
 @end

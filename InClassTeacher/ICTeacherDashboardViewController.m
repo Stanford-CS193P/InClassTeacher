@@ -65,11 +65,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    // This is used for handling the case in which the toolbar was not instantiated
-    // when `setSplitViewBarButtonItem` was called.
-    [self addSplitViewBarButtonItemToToolbar:self.splitViewBarButtonItem
-             andRemoveSplitViewBarButtonItem:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveGeneralData:)
                                                  name:kGeneralDataReceivedFromPeerNotification
@@ -114,32 +109,6 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         self.generalLiveGraphView[dict[@"peerIDDisplayName"]] = taggedTimeValue;
     });
-}
-
-#pragma mark - Split View
-
-// This method removes any old split view bar button from the toolbar and adds the new one.
-//
-// Note: This should be considered part of the setter for `splitViewBarButtonItem`. The reason
-// that it is separated is so that it can be called in `viewDidLoad` (to ensure that the
-// toolbar buttons are set up properly even if the toolbar was nil when the setter was first called).
-- (void)addSplitViewBarButtonItemToToolbar:(UIBarButtonItem *)splitViewBarButtonItemToAdd
-           andRemoveSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItemToRemove
-{
-    NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
-    if (splitViewBarButtonItemToRemove) [toolbarItems removeObject:splitViewBarButtonItemToRemove];
-    if (splitViewBarButtonItemToAdd) [toolbarItems insertObject:splitViewBarButtonItemToAdd atIndex:0];
-    self.toolbar.items = toolbarItems;
-}
-
-- (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem
-{
-    // Only update `splitViewBarButtonItem` if necessary
-    if (splitViewBarButtonItem != _splitViewBarButtonItem) {
-        [self addSplitViewBarButtonItemToToolbar:splitViewBarButtonItem
-                 andRemoveSplitViewBarButtonItem:_splitViewBarButtonItem];
-        _splitViewBarButtonItem = splitViewBarButtonItem;
-    }
 }
 
 @end

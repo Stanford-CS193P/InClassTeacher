@@ -257,6 +257,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="replace" splitViewControllerTargetIndex="1" id="elU-XC-nAj"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -289,16 +292,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GJC-vD-i0m">
-                                <rect key="frame" x="0.0" y="20" width="768" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Eaw-MF-feV"/>
-                                </constraints>
-                                <items/>
-                            </toolbar>
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s6o-OA-XeX" userLabel="General Livegraph" customClass="LiveGraphView">
-                                <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -307,15 +302,10 @@
                         <constraints>
                             <constraint firstItem="s6o-OA-XeX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Jzw-Gh-6vT"/>
                             <constraint firstAttribute="trailing" secondItem="s6o-OA-XeX" secondAttribute="trailing" id="Tgz-LZ-XrE"/>
-                            <constraint firstItem="GJC-vD-i0m" firstAttribute="top" secondItem="le2-hV-e5p" secondAttribute="bottom" id="WfO-kg-lmD"/>
-                            <constraint firstItem="s6o-OA-XeX" firstAttribute="top" secondItem="GJC-vD-i0m" secondAttribute="bottom" id="eC0-gd-zaM"/>
-                            <constraint firstAttribute="trailing" secondItem="GJC-vD-i0m" secondAttribute="trailing" id="uAg-Hr-E7S"/>
-                            <constraint firstItem="GJC-vD-i0m" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="vkz-wQ-6Cj"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="generalLiveGraphView" destination="s6o-OA-XeX" id="fL2-ox-XhL"/>
-                        <outlet property="toolbar" destination="GJC-vD-i0m" id="Fix-Q7-uWE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -335,19 +325,35 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Question" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="728" translatesAutoresizingMaskIntoConstraints="NO" id="zfI-bt-0qn">
-                                <rect key="frame" x="20" y="68" width="728" height="50"/>
+                                <rect key="frame" x="20" y="78" width="728" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Italic" family="Avenir Next" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="728" translatesAutoresizingMaskIntoConstraints="NO" id="QYg-C7-uxf">
+                                <rect key="frame" x="20" y="20" width="728" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Italic" family="Avenir Next" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jhl-nv-7kQ" userLabel="T/F view">
-                                <rect key="frame" x="20" y="351" width="384" height="512"/>
+                                <rect key="frame" x="20" y="160" width="728" height="244"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.99991685149999998" green="0.96811670059999999" blue="0.13489291070000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="9aK-Gf-ASo">
+                                        <rect key="frame" x="20" y="108" width="688" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <segments>
+                                            <segment title="True"/>
+                                            <segment title="False"/>
+                                        </segments>
+                                    </segmentedControl>
+                                </subviews>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YtW-SR-YaE" userLabel="Multiple choice view">
-                                <rect key="frame" x="20" y="126" width="728" height="244"/>
+                                <rect key="frame" x="20" y="167" width="728" height="244"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Choice 1" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="688" translatesAutoresizingMaskIntoConstraints="NO" id="M7k-0O-UlO">
@@ -385,8 +391,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="choice1Label" destination="M7k-0O-UlO" id="l7l-O8-UgT"/>
+                        <outlet property="choice2Label" destination="oAr-9S-Qok" id="OQj-w4-ftV"/>
+                        <outlet property="choice3Label" destination="UKt-6s-RmQ" id="fVW-Qd-Wo8"/>
+                        <outlet property="choice4Label" destination="XMg-L6-DEB" id="8Bl-Hk-9lp"/>
                         <outlet property="multipleChoiceView" destination="YtW-SR-YaE" id="Yyp-Gg-pnm"/>
                         <outlet property="questionLabel" destination="zfI-bt-0qn" id="6l6-ag-KsZ"/>
+                        <outlet property="titleLabel" destination="QYg-C7-uxf" id="OpO-gd-Djc"/>
                         <outlet property="trueFalseView" destination="Jhl-nv-7kQ" id="nja-4E-7hx"/>
                     </connections>
                 </viewController>
@@ -414,4 +425,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="elU-XC-nAj"/>
+    </inferredMetricsTieBreakers>
 </document>
