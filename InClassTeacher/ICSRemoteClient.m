@@ -102,18 +102,27 @@
     [self reconnect];
 }
 
-- (void) socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet
+- (void) socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet {
+    [self handleIncomingData:[[[packet dataAsJSON] objectForKey:@"args"] firstObject]];
+}
+
+- (void)socketIO:(SocketIO *)socket didReceiveJSON:(SocketIOPacket *)packet
 {
-    NSDictionary *data = [packet dataAsJSON];
-    NSLog(@"didReceiveEvent >>> data: %@", data);
+    [self handleIncomingData:[packet dataAsJSON]];
+}
+
+- (void)handleIncomingData:(NSDictionary *)packetData
+{
+    NSLog(@"packetData %@", packetData);
     
-    NSString *eventName = [data objectForKey:@"name"];
+    NSString *model = [packetData objectForKey:@"model"];
+    NSString *verb = [packetData objectForKey:@"verb"];
+    NSDictionary *data = [packetData objectForKey:@"data"];
     
-    if ([eventName isEqualToString:@"NewStudentResponse"]) {
-        NSDictionary *responseDict = [[[data objectForKey:@"args"] firstObject] objectForKey:@"response"];
-        NSNumber *rating = [responseDict objectForKey:@"rating"];
-        NSString *identifierForVendor = [responseDict objectForKey:@"identifierForVendor"];
-        NSDate *time = [self dateWithJSONString:[responseDict objectForKey:@"createdAt"]];
+    if ([model isEqualToString:@"inclassstudentresponse"] && [verb isEqualToString:@"create"]) {
+        NSNumber *rating = [data objectForKey:@"rating"];
+        NSString *identifierForVendor = [data objectForKey:@"identifierForVendor"];
+        NSDate *time = [self dateWithJSONString:[data objectForKey:@"createdAt"]];
         NSDictionary *notificationDict = @{@"peerIDDisplayName": identifierForVendor,
                                            @"time": time,
                                            @"rating": rating};
