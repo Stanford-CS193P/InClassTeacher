@@ -9,7 +9,7 @@
 #import "TimestampedDouble.h"
 #import "SendableData.h"
 
-#define kTagKey @"tag"
+#define kTagKey @"conceptName"
 #define kSentKey @"sent"
 #define kDateKey @"date"
 
