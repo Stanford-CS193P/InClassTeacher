@@ -72,17 +72,17 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if ([textField.text length] > 0) {
-        [self addElementWithTag:textField.text];
-    }
+    [self addElementWithTag:textField.text];
     [textField resignFirstResponder];
     return YES;
 }
 
 - (void)addElementWithTag:(NSString *)tag
 {
-    TaggedTimestampedDouble *ttd = [[TaggedTimestampedDouble alloc] initWithTag:tag];
-    [self addElement:ttd];
+    if ([tag length] > 0) {
+        TaggedTimestampedDouble *ttd = [[TaggedTimestampedDouble alloc] initWithTag:tag];
+        [self addElement:ttd];
+    }
 }
 
 @end
