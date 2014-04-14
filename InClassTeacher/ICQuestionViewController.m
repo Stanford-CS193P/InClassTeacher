@@ -87,12 +87,6 @@
     // Do any additional setup after loading the view.
         
     [self setupBarView];
-
-    //FOR TEST PURPOSES
-    NSArray *choices = [self questionChoices];
-    for (NSUInteger i = 0; i < 50; i++) {
-        [self.barChartView addDataPoint:choices[arc4random()%[choices count]]];
-    }
     
     self.titleLabel.text = self.question.title;
     self.questionLabel.text = self.question.text;
@@ -125,16 +119,6 @@
         MultipleChoiceQuestion *q = (MultipleChoiceQuestion *)self.question;
         self.barChartView.categories = q.choicesArray;
     }
-}
-
-
-//FOR TEST PURPOSES
-- (NSArray *)questionChoices
-{
-    if (self.question.type == MULTIPLE_CHOICE) {
-        MultipleChoiceQuestion *q = (MultipleChoiceQuestion *)self.question;
-        return q.choicesArray;
-    } else return nil;
 }
 
 - (void)didReceiveResponse:(NSNotification *)notification

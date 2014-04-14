@@ -90,19 +90,7 @@
 {
     if ([vc isKindOfClass:[ICQuestionViewController class]]) {
         ICQuestionViewController *qvc = (ICQuestionViewController *)vc;
-
-        //FOR TEST PURPOSES
-        NSArray *choices = @[@"Now", @"Here", @"Sometimes", @"Before"];
-        MultipleChoiceQuestion *testQ = [[MultipleChoiceQuestion alloc] initWithTitle:@"Future" text:@"Where does the future start?"];
-        [testQ addChoice:choices[0]];
-        [testQ addChoice:choices[1]];
-        [testQ addChoice:choices[2]];
-        [testQ addChoice:choices[3]];
-        testQ.objectId = @"TEST";
-        
-        qvc.question = testQ;
-
-//        qvc.question = self.data[path.row];
+        qvc.question = self.data[path.row];
     }
 }
 
