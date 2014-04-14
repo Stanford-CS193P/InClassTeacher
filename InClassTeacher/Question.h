@@ -17,7 +17,6 @@ typedef enum : NSUInteger {
 #define kTypeKey @"type"
 #define kTextKey @"text"
 #define kTitleKey @"title"
-#define kSentKey @"sent"
 
 @interface Question : NSObject<SendableData>
 
@@ -30,5 +29,6 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign, readonly) QuestionType type;
 @property (nonatomic, strong, readonly) NSString *title;
 @property (nonatomic, assign) BOOL sent;
+@property (nonatomic, assign) NSString *objectId;
 
 @end

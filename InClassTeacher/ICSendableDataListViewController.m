@@ -97,14 +97,22 @@
     }
     
     id<SendableData> data = self.data[indexPath.row];
+    __weak SlideInTableViewCell *weakCell = cell;
     [cell setConfirmationBlock:^{
         [self.peerManager sendEvent:[self serverEventName]
-                           withData:[data toDictionary]];
+                           withData:[data toDictionary]
+                           callback:^(id response) {
+                               data.objectId = response[kObjectIdKey];
+                               [self persistData];
+                               if ([self segueIdentifier]) {
+                                   [self performSegueWithIdentifier:[self segueIdentifier]
+                                                             sender:weakCell];
+                               }
+                           }];
         data.sent = YES;
         [self persistData];
         [self.dataTableView reloadData];
     }];
-    
     
     [self setupCell:cell
         atIndexPath:indexPath];
@@ -134,6 +142,11 @@
 }
 
 #pragma mark - Subclasses
+
+- (NSString *)segueIdentifier
+{
+    return nil;
+}
 
 - (void)setupViewController:(UIViewController *)vc
                 atIndexPath:(NSIndexPath *)path

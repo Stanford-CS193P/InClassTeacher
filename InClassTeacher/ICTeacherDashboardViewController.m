@@ -16,18 +16,17 @@
 
 @property (strong, nonatomic) UIPopoverController *urlPopover;
 @property (weak, nonatomic) IBOutlet LiveGraphView *generalLiveGraphView;
-@property (strong, nonatomic) ICSRemoteClient *peerManager;
-@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (strong, nonatomic) ICSRemoteClient *remoteClient;
 
 @end
 
 @implementation ICTeacherDashboardViewController
 
-- (ICSRemoteClient *)peerManager
+- (ICSRemoteClient *)remoteClient
 {
-    if (!_peerManager)
-        _peerManager = [ICSRemoteClient sharedManager];
-    return _peerManager;
+    if (!_remoteClient)
+        _remoteClient = [ICSRemoteClient sharedManager];
+    return _remoteClient;
 }
 
 - (void)setGeneralLiveGraphView:(LiveGraphView *)generalLiveGraphView

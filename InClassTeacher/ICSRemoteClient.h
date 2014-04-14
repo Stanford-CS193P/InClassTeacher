@@ -22,10 +22,13 @@
 #define kGeneralDataReceivedFromPeerNotification @"GeneralDataReceivedFromPeer"
 // No longer used w/latest iteration...
 #define kTopicDataReceivedFromPeerNotification @"TopicDataReceivedFromPeer"
+#define kQuestionResponseReceived @"QuestionResponseReceived"
 #define kDataKey @"Data"
 
 + (ICSRemoteClient *)sharedManager;
-- (void)sendEvent:(NSString *)event withData:(NSDictionary *)dict;
+- (void)sendEvent:(NSString *)event
+         withData:(NSDictionary *)data
+         callback:(void (^)(id response))callback;
 - (void)connect;
 - (void)disconnect;
 

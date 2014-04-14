@@ -10,7 +10,6 @@
 #import "SendableData.h"
 
 #define kTagKey @"conceptName"
-#define kSentKey @"sent"
 #define kDateKey @"date"
 
 @interface TaggedTimestampedDouble : TimestampedDouble<SendableData>
@@ -24,6 +23,7 @@
 @property (strong, nonatomic, readonly) NSString *tag;
 
 //SendableData protocol
+@property (nonatomic, assign) NSString *objectId;
 @property (assign, nonatomic) BOOL sent;
 - (NSDictionary *)toDictionary;
 

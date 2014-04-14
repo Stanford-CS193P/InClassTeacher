@@ -16,5 +16,6 @@
                          text:(NSString *)questionText;
 - (void)addChoice:(NSString *)choiceText;
 - (NSString *)choiceAtIndex:(NSUInteger)index;
+- (NSArray *)choicesArray;
 
 @end

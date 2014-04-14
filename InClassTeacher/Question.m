@@ -33,9 +33,17 @@
 
 - (NSDictionary *)toDictionary
 {
-    return @{kTextKey: self.text,
-             kTitleKey: self.title,
-             kSentKey: @(self.sent)};
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+  
+    dict[kTextKey] = self.text;
+    dict[kTitleKey] = self.title;
+    dict[kSentKey] = @(self.sent);
+    
+    if (self.objectId) {
+        dict[kObjectIdKey] = self.objectId;
+    }
+    
+    return [NSDictionary dictionaryWithDictionary:dict];
 }
 
 @end

@@ -31,6 +31,7 @@
         }
     }
     
+    question.objectId = questionDic[kObjectIdKey];
     question.sent = [questionDic[kSentKey] boolValue];
     return question;
 }

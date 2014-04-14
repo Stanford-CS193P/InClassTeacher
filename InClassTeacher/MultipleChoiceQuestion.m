@@ -22,6 +22,11 @@
     return _choices;
 }
 
+- (NSArray *)choicesArray
+{
+    return [NSArray arrayWithArray:self.choices];
+}
+
 - (NSUInteger)numberOfChoices
 {
     return [self.choices count];

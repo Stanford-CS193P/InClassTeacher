@@ -22,6 +22,7 @@
                                                                 Double:0.0
                                                                    Tag:dictionary[kTagKey]];
     ttd.sent = [dictionary[kSentKey] boolValue];
+    ttd.objectId = dictionary[kObjectIdKey];
     return ttd;
 }
 
@@ -48,8 +49,16 @@
 
 - (NSDictionary *)toDictionary
 {
-    return @{kTagKey: self.tag,
-             kSentKey: @(self.sent)};
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    dict[kTagKey] = self.tag;
+    dict[kSentKey] = @(self.sent);
+    
+    if (self.objectId) {
+        dict[kObjectIdKey] = self.objectId;
+    }
+    
+    return [NSDictionary dictionaryWithDictionary:dict];
 }
 
 @end

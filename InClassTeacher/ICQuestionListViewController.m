@@ -68,6 +68,11 @@
     return UITableViewCellStyleSubtitle;
 }
 
+- (NSString *)segueIdentifier
+{
+    return @"ReplaceQuestion";
+}
+
 #pragma mark - IBActions
 
 - (IBAction)didSaveQuestion:(UIStoryboardSegue *)segue

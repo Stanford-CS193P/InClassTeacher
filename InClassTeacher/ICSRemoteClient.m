@@ -61,7 +61,8 @@
     if (!_eventToURLMap) {
         _eventToURLMap = @{
                            @"CreateConcept": @"/InClassConcept/create",
-                           @"CreateQuestion": @"/InClassQuestion/create"
+                           @"CreateQuestion": @"/InClassQuestion/create",
+                           @"GetResponsesForQuestionId": @"/InClassQuestionResponse/readByQuestionID"
                            };
     }
     return _eventToURLMap;
@@ -129,6 +130,15 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:kGeneralDataReceivedFromPeerNotification
                                                             object:self
                                                           userInfo:@{kDataKey: notificationDict}];
+    } else if ([model isEqualToString:@"inclassquestionresponse"] && [verb isEqualToString:@"create"]) {
+        NSLog(@"==============> %@", @"NEW RESPONSE YO");
+        
+        NSDictionary *notificationDict = @{@"response": data[@"response"],
+                                           @"questionID": data[@"questionID"]};
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kQuestionResponseReceived
+                                                            object:self
+                                                          userInfo:@{kDataKey: notificationDict}];
     }
 }
 
@@ -141,7 +151,11 @@
     return date;
 }
 
-- (void)sendEvent:(NSString *)event withData:(NSDictionary *)data
+
+//questionID key
+- (void)sendEvent:(NSString *)event
+         withData:(NSDictionary *)data
+         callback:(void (^)(id response))callback
 {
     if (![[self.eventToURLMap allKeys] containsObject:event]) {
         NSLog(@"event %@ not valid", event);
@@ -153,8 +167,12 @@
     NSLog(@"INFO: sendDict %@", data);
     
     NSString *url = self.eventToURLMap[event];
-    [self.socketIO post:url withData:data callback:^(id response) {
+    [self.socketIO post:url
+               withData:data
+               callback:^(id response) {
         NSLog(@"%@ response: %@", url, response);
+        if (callback)
+            callback(response);
     }];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kRawDataSentToPeers

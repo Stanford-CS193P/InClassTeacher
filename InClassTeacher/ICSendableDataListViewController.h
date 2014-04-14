@@ -26,5 +26,6 @@
 - (id)dataObjectFromDictionary:(NSDictionary *)dictionary;
 - (void)setupViewController:(UIViewController *)vc
                 atIndexPath:(NSIndexPath *)path;
+- (NSString *)segueIdentifier;
 
 @end

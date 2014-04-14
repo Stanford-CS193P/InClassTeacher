@@ -76,7 +76,7 @@
                                             <gestureRecognizers/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="rjV-Po-hhf" kind="replace" splitViewControllerTargetIndex="1" id="e4w-7I-NUi"/>
+                                            <segue destination="rjV-Po-hhf" kind="replace" identifier="ReplaceQuestion" splitViewControllerTargetIndex="1" id="e4w-7I-NUi"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -402,16 +402,23 @@
                                     <constraint firstAttribute="height" constant="297" id="Que-D0-H5b"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WRc-Wv-RHC" userLabel="Bar Chart View" customClass="LiveBarChartView">
+                                <rect key="frame" x="20" y="419" width="728" height="597"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Jhl-nv-7kQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="14L-uQ-mDc"/>
                             <constraint firstAttribute="trailing" secondItem="Jhl-nv-7kQ" secondAttribute="trailing" constant="20" symbolic="YES" id="4FL-US-dtj"/>
+                            <constraint firstItem="WRc-Wv-RHC" firstAttribute="leading" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="88g-HY-ti1"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Jhl-nv-7kQ" secondAttribute="trailing" constant="20" symbolic="YES" id="EH5-jV-pf9"/>
                             <constraint firstItem="YtW-SR-YaE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="FUp-Cs-uKR"/>
                             <constraint firstItem="YtW-SR-YaE" firstAttribute="top" secondItem="zfI-bt-0qn" secondAttribute="bottom" constant="8" symbolic="YES" id="Gp2-yb-twe"/>
                             <constraint firstItem="zfI-bt-0qn" firstAttribute="top" secondItem="QYg-C7-uxf" secondAttribute="bottom" constant="8" symbolic="YES" id="HfK-Xu-Lt6"/>
                             <constraint firstItem="Jhl-nv-7kQ" firstAttribute="leading" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="IWM-Xa-Q2C"/>
+                            <constraint firstAttribute="trailing" secondItem="WRc-Wv-RHC" secondAttribute="trailing" constant="20" symbolic="YES" id="JGk-Fw-h0x"/>
                             <constraint firstItem="Jhl-nv-7kQ" firstAttribute="top" secondItem="zfI-bt-0qn" secondAttribute="bottom" constant="8" symbolic="YES" id="Nux-xk-neU"/>
                             <constraint firstItem="YtW-SR-YaE" firstAttribute="leading" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="Ofh-HO-iXH"/>
                             <constraint firstAttribute="trailing" secondItem="YtW-SR-YaE" secondAttribute="trailing" constant="20" symbolic="YES" id="Ufd-kX-PGk"/>
@@ -419,6 +426,8 @@
                             <constraint firstItem="QYg-C7-uxf" firstAttribute="trailing" secondItem="zfI-bt-0qn" secondAttribute="trailing" id="Xih-cx-TQi"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zfI-bt-0qn" secondAttribute="trailing" constant="20" symbolic="YES" id="Ylo-Vg-dlq"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YtW-SR-YaE" secondAttribute="trailing" constant="20" symbolic="YES" id="d03-Zf-gwi"/>
+                            <constraint firstItem="WRc-Wv-RHC" firstAttribute="top" secondItem="YtW-SR-YaE" secondAttribute="bottom" constant="8" symbolic="YES" id="dd2-TR-HJY"/>
+                            <constraint firstItem="PyG-aV-34w" firstAttribute="top" secondItem="WRc-Wv-RHC" secondAttribute="bottom" constant="20" symbolic="YES" id="oFG-Le-4L4"/>
                             <constraint firstAttribute="trailing" secondItem="zfI-bt-0qn" secondAttribute="trailing" constant="20" symbolic="YES" id="q7I-GY-YB0"/>
                             <constraint firstItem="zfI-bt-0qn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="r3Q-j4-UjG"/>
                             <constraint firstItem="QYg-C7-uxf" firstAttribute="leading" secondItem="zfI-bt-0qn" secondAttribute="leading" id="sq3-YY-YYn"/>
@@ -426,6 +435,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="barChartView" destination="WRc-Wv-RHC" id="qiy-80-OGI"/>
                         <outlet property="choice1Label" destination="M7k-0O-UlO" id="l7l-O8-UgT"/>
                         <outlet property="choice2Label" destination="oAr-9S-Qok" id="OQj-w4-ftV"/>
                         <outlet property="choice3Label" destination="UKt-6s-RmQ" id="fVW-Qd-Wo8"/>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C28C8ED18FB8BCD006D800A /* LiveBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C28C8EC18FB8BCD006D800A /* LiveBarChartView.m */; };
 		5C2D318818EA8C980079F9F6 /* ICNewQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2D318718EA8C980079F9F6 /* ICNewQuestionViewController.m */; };
 		5C2D318B18EA95920079F9F6 /* ICTopicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2D318A18EA95920079F9F6 /* ICTopicListViewController.m */; };
 		5C2D318E18EA97800079F9F6 /* ICQuestionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2D318D18EA97800079F9F6 /* ICQuestionListViewController.m */; };
@@ -63,6 +64,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C28C8EB18FB8BCD006D800A /* LiveBarChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveBarChartView.h; sourceTree = "<group>"; };
+		5C28C8EC18FB8BCD006D800A /* LiveBarChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveBarChartView.m; sourceTree = "<group>"; };
 		5C2D318618EA8C980079F9F6 /* ICNewQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICNewQuestionViewController.h; sourceTree = "<group>"; };
 		5C2D318718EA8C980079F9F6 /* ICNewQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICNewQuestionViewController.m; sourceTree = "<group>"; };
 		5C2D318918EA95920079F9F6 /* ICTopicListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICTopicListViewController.h; sourceTree = "<group>"; };
@@ -293,6 +296,8 @@
 		5CC58E8818D7E52E002FFF7C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5C28C8EB18FB8BCD006D800A /* LiveBarChartView.h */,
+				5C28C8EC18FB8BCD006D800A /* LiveBarChartView.m */,
 				5CC58E8918D7E53F002FFF7C /* LiveGraphView.h */,
 				5CC58E8A18D7E53F002FFF7C /* LiveGraphView.m */,
 				5CDBC12118C5957800C7A978 /* MCSwipeTableViewCell.h */,
@@ -483,6 +488,7 @@
 				5CE03F2B18DB776B0036A61F /* TimestampedDouble.m in Sources */,
 				9F9E4D9118E0C30300768F94 /* base64.c in Sources */,
 				5CAA0C2E18BEFF0A00F3829A /* ICSendableDataListViewController.m in Sources */,
+				5C28C8ED18FB8BCD006D800A /* LiveBarChartView.m in Sources */,
 				9F9E4D9318E0C30300768F94 /* SRWebSocket.m in Sources */,
 				9F9E4D8F18E0C30300768F94 /* SocketIOTransportWebsocket.m in Sources */,
 				5CE03F2E18DB7A3E0036A61F /* TaggedTimestampedDouble.m in Sources */,
