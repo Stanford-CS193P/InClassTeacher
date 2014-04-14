@@ -11,6 +11,7 @@
 #import "ICNewQuestionViewController.h"
 #import "ICQuestionViewController.h"
 #import "QuestionFactory.h"
+#import "TrueFalseQuestion.h"
 
 @interface ICQuestionListViewController ()
 
@@ -89,7 +90,14 @@
 {
     if ([vc isKindOfClass:[ICQuestionViewController class]]) {
         ICQuestionViewController *qvc = (ICQuestionViewController *)vc;
-        qvc.question = self.data[path.row];
+
+//        NSArray *choices = @[@"now", @"here", @"sometimes", @"before"];
+        TrueFalseQuestion *testQ = [[TrueFalseQuestion alloc] initWithTitle:@"Test" text:@"what's my test?"];
+        testQ.objectId = @"TEST";
+        
+        qvc.question = testQ;
+
+//        qvc.question = self.data[path.row];
     }
 }
 

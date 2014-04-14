@@ -17,6 +17,12 @@
 
 @implementation LiveBarChartView
 
+- (void)setHighlightedCategory:(NSString *)highlightedCategory
+{
+    _highlightedCategory = highlightedCategory;
+    [self setNeedsDisplay];
+}
+
 - (NSCountedSet *)data
 {
     if (!_data) _data = [[NSCountedSet alloc] init];
@@ -65,8 +71,8 @@
     for (NSString *category in self.categories) {
         CGFloat numDataItemsForCategory = (CGFloat)[self.data countForObject:category];
         
-        BOOL isMaxCategory = [category isEqualToString:self.mostVotedCategory];
-        UIColor *barColor = isMaxCategory ? [UIColor greenColor] : [UIColor blackColor];
+        BOOL isHighlightedCategory = self.highlightedCategory && [category isEqualToString:self.highlightedCategory];
+        UIColor *barColor = isHighlightedCategory ? [UIColor greenColor] : [UIColor blackColor];
         CGFloat barHeight = (numDataItemsForCategory / [self totalNumberOfDataPoints]) * CGRectGetHeight(self.bounds);
         
         //draw bar

@@ -59,7 +59,7 @@
 
 - (void)setChoice4Label:(UILabel *)choice4Label
 {
-    _choice1Label = choice4Label;
+    _choice4Label = choice4Label;
     [self setupLabel:choice4Label
              atIndex:4];
 }
@@ -70,31 +70,28 @@
     label.text = @"";
     if (self.question.type == MULTIPLE_CHOICE) {
         MultipleChoiceQuestion *mcp = (MultipleChoiceQuestion *)self.question;
-        NSString *choiceText = [mcp choiceAtIndex:choicePosition -1];
+        NSString *choiceText = [mcp choiceAtIndex:choicePosition-1];
         if (choiceText)
             label.text = choiceText;
     }
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [self.barChartView setNeedsDisplay];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-//    NSArray *choices = @[@"now", @"here", @"sometimes", @"before"];
-//    MultipleChoiceQuestion *testQ = [[MultipleChoiceQuestion alloc] initWithTitle:@"Test" text:@"what's my test?"];
-//    [testQ addChoice:choices[0]];
-//    [testQ addChoice:choices[1]];
-//    [testQ addChoice:choices[2]];
-//    [testQ addChoice:choices[3]];
-//    self.question = testQ;
-//    self.question.objectId = @"TEST";
-//    
+        
     [self setupBarView];
-//    
-//    for (NSUInteger i = 0; i < 50; i++) {
-//        [self.barChartView addDataPoint:choices[arc4random()%[choices count]]];
-//    }
+
+    NSArray *choices = @[@"True", @"False"];
+    for (NSUInteger i = 0; i < 50; i++) {
+        [self.barChartView addDataPoint:choices[arc4random()%[choices count]]];
+    }
     
     self.titleLabel.text = self.question.title;
     self.questionLabel.text = self.question.text;
@@ -117,17 +114,6 @@
                                                  name:kQuestionResponseReceived
                                                object:nil];
     
-//    [NSTimer scheduledTimerWithTimeInterval:1.0
-//                                     target:self
-//                                   selector:@selector(newResponse:)
-//                                   userInfo:nil
-//                                    repeats:YES];
-}
-
-- (void)newResponse:(NSTimer *)timer
-{
-    NSArray *choices = @[@"now", @"here", @"sometimes", @"before"];
-    [self.barChartView addDataPoint:choices[arc4random()%[choices count]]];
 }
 
 - (void)setupBarView
@@ -146,6 +132,26 @@
     
     if ([dict[@"questionID"] isEqualToString:self.question.objectId]) {
         [self.barChartView addDataPoint:dict[@"response"]];
+    }
+}
+
+#pragma mark - Actions
+
+- (IBAction)trueFalseValueChaged:(UISegmentedControl *)sender {
+    NSString *answer = (sender.selectedSegmentIndex == 0) ? @"True" : @"False";
+    self.barChartView.highlightedCategory = answer;
+}
+
+- (IBAction)choiceLabelTapped:(UITapGestureRecognizer *)sender {
+    if ([sender.view isKindOfClass:[UILabel class]]) {
+        self.choice1Label.textColor = [UIColor blackColor];
+        self.choice2Label.textColor = [UIColor blackColor];
+        self.choice3Label.textColor = [UIColor blackColor];
+        self.choice4Label.textColor = [UIColor blackColor];
+        
+        UILabel *choiceLabel = (UILabel *)sender.view;
+        choiceLabel.textColor = [UIColor greenColor];
+        self.barChartView.highlightedCategory = choiceLabel.text;
     }
 }
 

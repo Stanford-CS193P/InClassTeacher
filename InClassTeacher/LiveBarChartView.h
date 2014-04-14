@@ -12,6 +12,8 @@
 
 //configuration
 @property (strong, nonatomic) NSArray *categories;
+@property (strong, nonatomic) NSString *highlightedCategory;
+
 - (void)addDataPoint:(NSString *)category;
 
 @end
