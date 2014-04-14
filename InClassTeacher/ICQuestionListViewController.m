@@ -11,7 +11,7 @@
 #import "ICNewQuestionViewController.h"
 #import "ICQuestionViewController.h"
 #import "QuestionFactory.h"
-#import "TrueFalseQuestion.h"
+#import "MultipleChoiceQuestion.h"
 
 @interface ICQuestionListViewController ()
 
@@ -91,8 +91,13 @@
     if ([vc isKindOfClass:[ICQuestionViewController class]]) {
         ICQuestionViewController *qvc = (ICQuestionViewController *)vc;
 
-//        NSArray *choices = @[@"now", @"here", @"sometimes", @"before"];
-        TrueFalseQuestion *testQ = [[TrueFalseQuestion alloc] initWithTitle:@"Test" text:@"what's my test?"];
+        //FOR TEST PURPOSES
+        NSArray *choices = @[@"Now", @"Here", @"Sometimes", @"Before"];
+        MultipleChoiceQuestion *testQ = [[MultipleChoiceQuestion alloc] initWithTitle:@"Future" text:@"Where does the future start?"];
+        [testQ addChoice:choices[0]];
+        [testQ addChoice:choices[1]];
+        [testQ addChoice:choices[2]];
+        [testQ addChoice:choices[3]];
         testQ.objectId = @"TEST";
         
         qvc.question = testQ;

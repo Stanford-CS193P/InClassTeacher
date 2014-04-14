@@ -74,14 +74,15 @@
         BOOL isHighlightedCategory = self.highlightedCategory && [category isEqualToString:self.highlightedCategory];
         UIColor *barColor = isHighlightedCategory ? [UIColor greenColor] : [UIColor blackColor];
         CGFloat barHeight = (numDataItemsForCategory / [self totalNumberOfDataPoints]) * CGRectGetHeight(self.bounds);
+        CGFloat barY = CGRectGetHeight(self.bounds) - barHeight - Y_PADDING;
         
         //draw bar
         [barColor set];
-        UIRectFill(CGRectMake(barX, Y_PADDING, barWidth, barHeight));
+        UIRectFill(CGRectMake(barX, barY, barWidth, barHeight));
         
         //draw label
         [self drawLabelForCategory:category
-                            inRect:CGRectMake(barX, 0, barWidth, Y_PADDING)];
+                            inRect:CGRectMake(barX, CGRectGetHeight(self.bounds) - Y_PADDING, barWidth, Y_PADDING)];
         
         barX += barWidth + X_PADDING;
     }

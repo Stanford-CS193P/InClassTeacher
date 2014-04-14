@@ -88,7 +88,8 @@
         
     [self setupBarView];
 
-    NSArray *choices = @[@"True", @"False"];
+    //FOR TEST PURPOSES
+    NSArray *choices = [self questionChoices];
     for (NSUInteger i = 0; i < 50; i++) {
         [self.barChartView addDataPoint:choices[arc4random()%[choices count]]];
     }
@@ -124,6 +125,16 @@
         MultipleChoiceQuestion *q = (MultipleChoiceQuestion *)self.question;
         self.barChartView.categories = q.choicesArray;
     }
+}
+
+
+//FOR TEST PURPOSES
+- (NSArray *)questionChoices
+{
+    if (self.question.type == MULTIPLE_CHOICE) {
+        MultipleChoiceQuestion *q = (MultipleChoiceQuestion *)self.question;
+        return q.choicesArray;
+    } else return nil;
 }
 
 - (void)didReceiveResponse:(NSNotification *)notification
