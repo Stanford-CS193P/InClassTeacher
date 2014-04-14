@@ -51,8 +51,6 @@
     [self.dataTableView reloadData];
 }
 
-//[self.peerManager sendEvent:@"CreateConcept" withData:@{@"conceptName": self.words[indexPath.row]}];
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([sender isKindOfClass:[UITableViewCell class]]) {
@@ -74,11 +72,6 @@
 }
 
 #pragma mark - Table view datasource and delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSLog(@"==============> %@", @"select");
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

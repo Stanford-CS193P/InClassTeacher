@@ -33,7 +33,7 @@
 {
     _generalLiveGraphView = generalLiveGraphView;
     _generalLiveGraphView.bars = 5;
-    _generalLiveGraphView.maxAge = 0;
+    _generalLiveGraphView.maxAge = 20;
     _generalLiveGraphView.updateInterval = 1.0;
     _generalLiveGraphView.minValue = 0;
     _generalLiveGraphView.maxValue = 1;

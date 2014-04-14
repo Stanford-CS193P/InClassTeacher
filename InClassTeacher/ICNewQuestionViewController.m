@@ -50,12 +50,16 @@
 - (Question *)savedQuestion
 {
     Question *newQuestion;
+
+    NSString *title = ([self.titleTextField.text length] > 0) ? self.titleTextField.text : @"No title";
+    NSString *text = ([self.questionTextField.text length] > 0) ? self.questionTextField.text : @"No text";
+    
     if (self.questionTypeControl.selectedSegmentIndex == 0) {
-        newQuestion = [[TrueFalseQuestion alloc] initWithTitle:self.titleTextField.text
-                                                          text:self.questionTextField.text];
+        newQuestion = [[TrueFalseQuestion alloc] initWithTitle:title
+                                                          text:text];
     } else {
-        newQuestion = [[MultipleChoiceQuestion alloc] initWithTitle:self.titleTextField.text
-                                                               text:self.questionTextField.text];
+        newQuestion = [[MultipleChoiceQuestion alloc] initWithTitle:title
+                                                               text:text];
         MultipleChoiceQuestion *question = (MultipleChoiceQuestion *)newQuestion;
         [self addChoiceFromTextField:self.choiceTextField1 toQuestion:question];
         [self addChoiceFromTextField:self.choiceTextField2 toQuestion:question];
