@@ -94,14 +94,16 @@
     self.trueFalseView.hidden = !self.multipleChoiceView.hidden;
     
     //load answers from server
-    [self.remoteClient sendEvent:@"GetResponsesForQuestionId"
-                        withData:@{@"questionID": self.question.objectId}
-                        callback:^(id response) {
-                            NSMutableArray *responses = (NSMutableArray *)response;
-                            for (NSDictionary *responseDict in responses) {
-                                [self.barChartView addDataPoint:responseDict[@"response"]];
-                            }
-    }];
+    if (self.question.objectId) {
+        [self.remoteClient sendEvent:@"GetResponsesForQuestionId"
+                            withData:@{@"questionID": self.question.objectId}
+                            callback:^(id response) {
+                                NSMutableArray *responses = (NSMutableArray *)response;
+                                for (NSDictionary *responseDict in responses) {
+                                    [self.barChartView addDataPoint:responseDict[@"response"]];
+                                }
+                            }];
+    }
     
     //subscribe to notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
