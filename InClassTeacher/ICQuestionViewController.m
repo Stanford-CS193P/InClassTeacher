@@ -24,10 +24,25 @@
 @property (weak, nonatomic) IBOutlet UILabel *choice4Label;
 @property (strong, nonatomic) ICSRemoteClient *remoteClient;
 @property (weak, nonatomic) IBOutlet LiveBarChartView *barChartView;
+@property (nonatomic) BOOL acceptingResponses;
+@property (weak, nonatomic) IBOutlet UIProgressView *responseCountProgressView;
+@property (nonatomic) int responseCount;
+@property (weak, nonatomic) NSTimer *testTimer;
 
 @end
 
+#define TEST NO
+
 @implementation ICQuestionViewController
+
+static int maxResponseCount = 0;
+
+- (void)setResponseCount:(int)responseCount
+{
+    _responseCount = responseCount;
+    if (responseCount > maxResponseCount) maxResponseCount = responseCount;
+    self.responseCountProgressView.progress = (float)responseCount/(float)maxResponseCount;
+}
 
 - (ICSRemoteClient *)remoteClient
 {
@@ -93,6 +108,8 @@
     self.multipleChoiceView.hidden = (self.question.type == TRUE_FALSE);
     self.trueFalseView.hidden = !self.multipleChoiceView.hidden;
     
+    self.acceptingResponses = YES;
+    
     //load answers from server
     if (self.question.objectId) {
         [self.remoteClient sendEvent:@"GetResponsesForQuestionId"
@@ -101,7 +118,8 @@
                                 NSMutableArray *responses = (NSMutableArray *)response;
                                 for (NSDictionary *responseDict in responses) {
                                     [self.barChartView addDataPoint:responseDict[@"response"]];
-                                }
+                                    self.responseCount++;
+                               }
                             }];
     }
     
@@ -111,6 +129,13 @@
                                                  name:kQuestionResponseReceived
                                                object:nil];
     
+    [self performSelector:@selector(startTesting) withObject:nil afterDelay:1.0];
+}
+
+- (void)dealloc
+{
+    // unsubscribe to notifications
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setupBarView
@@ -121,14 +146,19 @@
         MultipleChoiceQuestion *q = (MultipleChoiceQuestion *)self.question;
         self.barChartView.categories = q.choicesArray;
     }
+    self.barChartView.dataVisible = NO;
+    self.barChartView.animateHiddenData = YES;
 }
 
 - (void)didReceiveResponse:(NSNotification *)notification
 {
-    NSDictionary *dict = [[notification userInfo] valueForKey:kDataKey];
-    
-    if ([dict[@"questionID"] isEqualToString:self.question.objectId]) {
-        [self.barChartView addDataPoint:dict[@"response"]];
+    if (self.acceptingResponses) {
+        NSDictionary *dict = [[notification userInfo] valueForKey:kDataKey];
+        
+        if ([dict[@"questionID"] isEqualToString:self.question.objectId]) {
+            [self.barChartView addDataPoint:dict[@"response"]];
+            self.responseCount++;
+        }
     }
 }
 
@@ -137,6 +167,14 @@
 - (IBAction)trueFalseValueChaged:(UISegmentedControl *)sender {
     NSString *answer = (sender.selectedSegmentIndex == 0) ? @"True" : @"False";
     self.barChartView.highlightedCategory = answer;
+    [self stopAcceptingResponses];
+}
+
+- (void)stopAcceptingResponses
+{
+    self.barChartView.dataVisible = YES;
+    self.acceptingResponses = NO;
+    [self stopTesting];
 }
 
 - (IBAction)choiceLabelTapped:(UITapGestureRecognizer *)sender {
@@ -149,8 +187,30 @@
         UILabel *choiceLabel = (UILabel *)sender.view;
         choiceLabel.textColor = [UIColor greenColor];
         self.barChartView.highlightedCategory = choiceLabel.text;
+        [self stopAcceptingResponses];
     }
 }
 
+#pragma mark Testing
+
+- (void)startTesting
+{
+    if (TEST && !self.testTimer && !self.responseCount) {
+        self.testTimer = [NSTimer scheduledTimerWithTimeInterval:0.9 target:self selector:@selector(addTestDataPoint:) userInfo:nil repeats:YES];
+    }
+}
+
+- (void)stopTesting
+{
+    [self.testTimer invalidate];
+}
+
+- (void)addTestDataPoint:(NSTimer *)timer
+{
+    if ([self.barChartView.categories count]) {
+        [self.barChartView addDataPoint:self.barChartView.categories[arc4random()%[self.barChartView.categories count]]];
+        self.responseCount++;
+    }
+}
 
 @end

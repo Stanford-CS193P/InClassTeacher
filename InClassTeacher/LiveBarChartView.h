@@ -16,4 +16,7 @@
 
 - (void)addDataPoint:(NSString *)category;
 
+@property (nonatomic, getter = isDataVisible) BOOL dataVisible;
+@property (nonatomic, getter = isHiddenDataAnimated) BOOL animateHiddenData;
+
 @end

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="12F45" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="nhf-CY-spx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="nhf-CY-spx">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -446,10 +446,14 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WRc-Wv-RHC" userLabel="Bar Chart View" customClass="LiveBarChartView">
-                                <rect key="frame" x="20" y="419" width="728" height="597"/>
+                                <rect key="frame" x="20" y="419" width="728" height="575"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Q3Z-uU-8yO">
+                                <rect key="frame" x="20" y="1002" width="728" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -467,12 +471,15 @@
                             <constraint firstAttribute="trailing" secondItem="YtW-SR-YaE" secondAttribute="trailing" constant="20" symbolic="YES" id="Ufd-kX-PGk"/>
                             <constraint firstItem="QYg-C7-uxf" firstAttribute="top" secondItem="zJS-Xz-FW5" secondAttribute="top" constant="20" symbolic="YES" id="VyV-bg-9iZ"/>
                             <constraint firstItem="QYg-C7-uxf" firstAttribute="trailing" secondItem="zfI-bt-0qn" secondAttribute="trailing" id="Xih-cx-TQi"/>
+                            <constraint firstAttribute="trailing" secondItem="Q3Z-uU-8yO" secondAttribute="trailing" constant="20" id="Ybe-r1-6hK"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zfI-bt-0qn" secondAttribute="trailing" constant="20" symbolic="YES" id="Ylo-Vg-dlq"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YtW-SR-YaE" secondAttribute="trailing" constant="20" symbolic="YES" id="d03-Zf-gwi"/>
                             <constraint firstItem="WRc-Wv-RHC" firstAttribute="top" secondItem="YtW-SR-YaE" secondAttribute="bottom" constant="8" symbolic="YES" id="dd2-TR-HJY"/>
-                            <constraint firstItem="PyG-aV-34w" firstAttribute="top" secondItem="WRc-Wv-RHC" secondAttribute="bottom" constant="20" symbolic="YES" id="oFG-Le-4L4"/>
+                            <constraint firstItem="Q3Z-uU-8yO" firstAttribute="top" secondItem="WRc-Wv-RHC" secondAttribute="bottom" constant="8" symbolic="YES" id="fHS-rC-BdP"/>
+                            <constraint firstItem="Q3Z-uU-8yO" firstAttribute="leading" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" id="pEf-IU-khW"/>
                             <constraint firstAttribute="trailing" secondItem="zfI-bt-0qn" secondAttribute="trailing" constant="20" symbolic="YES" id="q7I-GY-YB0"/>
                             <constraint firstItem="zfI-bt-0qn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="r3Q-j4-UjG"/>
+                            <constraint firstItem="PyG-aV-34w" firstAttribute="top" secondItem="Q3Z-uU-8yO" secondAttribute="bottom" constant="20" id="rOK-U3-6Gp"/>
                             <constraint firstItem="QYg-C7-uxf" firstAttribute="leading" secondItem="zfI-bt-0qn" secondAttribute="leading" id="sq3-YY-YYn"/>
                             <constraint firstItem="zfI-bt-0qn" firstAttribute="leading" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="uMV-LR-Kdg"/>
                         </constraints>
@@ -485,6 +492,7 @@
                         <outlet property="choice4Label" destination="XMg-L6-DEB" id="8Bl-Hk-9lp"/>
                         <outlet property="multipleChoiceView" destination="YtW-SR-YaE" id="Yyp-Gg-pnm"/>
                         <outlet property="questionLabel" destination="zfI-bt-0qn" id="6l6-ag-KsZ"/>
+                        <outlet property="responseCountProgressView" destination="Q3Z-uU-8yO" id="4dc-4e-nDQ"/>
                         <outlet property="titleLabel" destination="QYg-C7-uxf" id="OpO-gd-Djc"/>
                         <outlet property="trueFalseView" destination="Jhl-nv-7kQ" id="nja-4E-7hx"/>
                     </connections>
@@ -511,7 +519,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="916" y="265"/>
+            <point key="canvasLocation" x="808" y="254"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="34z-Jf-pql">

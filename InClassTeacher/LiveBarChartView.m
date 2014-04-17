@@ -9,13 +9,28 @@
 #import "LiveBarChartView.h"
 
 @interface LiveBarChartView()
-
 @property (strong, nonatomic) NSCountedSet *data;
 @property (strong, nonatomic) NSString *mostVotedCategory;
-
+@property (strong, nonatomic) NSMutableDictionary *animatedHiddenBarPosition;
+@property (readonly, nonatomic) NSInteger mostVotedCategoryCount;
+@property (weak, nonatomic) NSTimer *animationTimer;
 @end
 
 @implementation LiveBarChartView
+
+#define CHANGE_DIRECTION_ODDS 7 // 1 in 7 chance of changing direction
+#define ANIMATION_INTERVAL 1.0
+
+- (NSMutableDictionary *)animatedHiddenBarPosition
+{
+    if (!_animatedHiddenBarPosition) _animatedHiddenBarPosition = [[NSMutableDictionary alloc] init];
+    return _animatedHiddenBarPosition;
+}
+
+- (NSInteger)mostVotedCategoryCount
+{
+    return self.mostVotedCategory ? [self.data countForObject:self.mostVotedCategory] : 0;
+}
 
 - (void)setHighlightedCategory:(NSString *)highlightedCategory
 {
@@ -29,6 +44,35 @@
     return _data;
 }
 
+- (void)startAnimation
+{
+    if (!self.animationTimer && self.animateHiddenData) {
+        self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:ANIMATION_INTERVAL target:self selector:@selector(animate:) userInfo:nil repeats:YES];
+    }
+}
+
+- (void)animate:(NSTimer *)timer
+{
+    [self setNeedsDisplay];
+}
+
+- (void)stopAnimation
+{
+    [self.animationTimer invalidate];
+}
+
+- (void)setAnimateHiddenData:(BOOL)animateHiddenData
+{
+    _animateHiddenData = animateHiddenData;
+    if (!animateHiddenData) [self stopAnimation];
+}
+
+- (void)setDataVisible:(BOOL)dataVisible
+{
+    _dataVisible = dataVisible;
+    if (dataVisible) [self stopAnimation];
+}
+
 - (void)addDataPoint:(NSString *)category
 {
     [self.data addObject:category];
@@ -36,18 +80,15 @@
     if (!self.mostVotedCategory) {
         self.mostVotedCategory = category;
         [self setNeedsDisplay];
-        return;
-    }
-    
-    if (![category isEqualToString:self.mostVotedCategory]) {
-        NSUInteger maxNumberOfVotesForCategory = [self.data countForObject:self.mostVotedCategory];
+    } else if (![category isEqualToString:self.mostVotedCategory]) {
         NSUInteger numberVotesForCategory = [self.data countForObject:category];
-
-        if (numberVotesForCategory > maxNumberOfVotesForCategory) {
+        if (numberVotesForCategory > self.mostVotedCategoryCount) {
             self.mostVotedCategory = category;
         }
     }
     
+    [self startAnimation];
+
     [self setNeedsDisplay];
 }
 
@@ -70,6 +111,24 @@
     
     for (NSString *category in self.categories) {
         CGFloat numDataItemsForCategory = (CGFloat)[self.data countForObject:category];
+    
+        if (!self.dataVisible) {
+            if (self.animateHiddenData) {
+                NSInteger animatedHiddenBarPosition = [self.animatedHiddenBarPosition[category] longValue];
+                animatedHiddenBarPosition += 1;
+                BOOL changeDirection = (arc4random()%CHANGE_DIRECTION_ODDS == 0) ? YES : NO;
+                if (changeDirection) animatedHiddenBarPosition *= -1;
+                if (animatedHiddenBarPosition >= self.mostVotedCategoryCount) animatedHiddenBarPosition = -1 * self.mostVotedCategoryCount;
+                self.animatedHiddenBarPosition[category] = @(animatedHiddenBarPosition);
+                if (animatedHiddenBarPosition < 0) {
+                    numDataItemsForCategory = - animatedHiddenBarPosition;
+                } else {
+                    numDataItemsForCategory = animatedHiddenBarPosition;
+                }
+            } else {
+                numDataItemsForCategory = 0;
+            }
+        }
         
         BOOL isHighlightedCategory = self.highlightedCategory && [category isEqualToString:self.highlightedCategory];
         UIColor *barColor = isHighlightedCategory ? [UIColor greenColor] : [UIColor blackColor];
