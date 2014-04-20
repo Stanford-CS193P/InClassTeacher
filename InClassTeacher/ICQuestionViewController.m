@@ -175,6 +175,10 @@ static int maxResponseCount = 0;
     self.barChartView.dataVisible = YES;
     self.acceptingResponses = NO;
     [self stopTesting];
+    
+    [[ICSRemoteClient sharedManager] sendEvent:@"CloseQuestion"
+                                      withData:@{@"id": self.question.objectId}
+                                      callback:nil];
 }
 
 - (IBAction)choiceLabelTapped:(UITapGestureRecognizer *)sender {

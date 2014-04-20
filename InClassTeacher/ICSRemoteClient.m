@@ -62,6 +62,7 @@
         _eventToURLMap = @{
                            @"CreateConcept": @"/InClassConcept/create",
                            @"CreateQuestion": @"/InClassQuestion/create",
+                           @"CloseQuestion": @"/InClassQuestion/close",
                            @"GetResponsesForQuestionId": @"/InClassQuestionResponse/readByQuestionID"
                            };
     }
