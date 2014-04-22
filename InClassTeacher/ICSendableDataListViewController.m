@@ -73,6 +73,16 @@
 
 #pragma mark - Table view datasource and delegate
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.data removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                         withRowAnimation:UITableViewRowAnimationFade];
+        [self persistData];
+    }
+}
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.data count];
@@ -119,6 +129,11 @@
     [self.data addObject:element];
     [self persistData];
     [self.dataTableView reloadData];
+}
+
+- (IBAction)tappedEditButton:(UIButton *)sender {
+    [self.dataTableView setEditing:!self.dataTableView.editing
+                          animated:YES];
 }
 
 //This is a sledgehammer approach (replacing the whole array even for a single field) but should be fine for now

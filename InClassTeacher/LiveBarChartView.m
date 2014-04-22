@@ -154,7 +154,7 @@
     NSMutableParagraphStyle *textStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
     textStyle.lineBreakMode = NSLineBreakByWordWrapping;
     textStyle.alignment = NSTextAlignmentCenter;
-    
+
     [category drawInRect:rect
           withAttributes:@{NSFontAttributeName: font,
                            NSParagraphStyleAttributeName: textStyle}];

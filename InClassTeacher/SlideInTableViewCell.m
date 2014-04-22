@@ -10,7 +10,6 @@
 
 @interface SlideInTableViewCell()
 
-@property (strong, nonatomic) UIView *upperView;
 @property (strong, nonatomic) UIButton *confirmButton;
 @property (strong, nonatomic) UITapGestureRecognizer *tapRecognizer;
 @property (assign, nonatomic) BOOL slidedIn;
@@ -29,7 +28,7 @@
                               delay:0.0
                             options:UIViewAnimationOptionCurveEaseOut
                          animations:^{
-                             self.upperView.frame = CGRectMake(-BUTTON_WIDTH, 0, self.contentView.bounds.size.width, self.contentView.bounds.size.height);
+                             self.confirmButton.frame = CGRectMake(self.contentView.bounds.size.width-BUTTON_WIDTH, 0, BUTTON_WIDTH, self.contentView.bounds.size.height);
                          } completion:nil];
     }
     
@@ -38,59 +37,49 @@
                               delay:0.0
                             options:UIViewAnimationOptionCurveEaseOut
                          animations:^{
-                             self.upperView.frame = CGRectMake(0, 0, self.contentView.bounds.size.width, self.contentView.bounds.size.height);
+                             self.confirmButton.frame = CGRectMake(self.contentView.bounds.size.width, 0, BUTTON_WIDTH, self.contentView.bounds.size.height);
                          } completion:nil];
     }
+}
+
+- (UIButton *)confirmButton
+{
+    if (!_confirmButton) {
+        CGFloat cellWidth = self.contentView.bounds.size.width;
+        CGFloat cellHeight = self.contentView.bounds.size.height;
+        _confirmButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_confirmButton setTitle:@"Send" forState:UIControlStateNormal];
+        _confirmButton.titleLabel.font = [UIFont fontWithName:@"AvenirNext" size:14];
+        [_confirmButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _confirmButton.backgroundColor = [UIColor greenColor];
+        _confirmButton.frame = CGRectMake(cellWidth, 0, BUTTON_WIDTH, cellHeight);
+        [_confirmButton addTarget:self
+                           action:@selector(confirmButtonTapped)
+                 forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _confirmButton;
 }
 
 - (void)setConfirmed:(BOOL)confirmed
 {
     _confirmed = confirmed;
     if (confirmed) {
-        [self removeGestureRecognizer:self.tapRecognizer];
-        self.tapRecognizer = nil;
+        [self toggleSlideTap:NO];
         self.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
-        if (!self.tapRecognizer) {
-            self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                         action:@selector(tappedCell:)];
-            [self addGestureRecognizer:self.tapRecognizer];
-        }
-        self.accessoryType = UITableViewCellAccessoryNone;
+        [self toggleSlideTap:YES];
     }
 }
 
-- (void)setupUpperView
+- (void)addConfirmButton
 {
-    self.upperView = [[UIView alloc] initWithFrame:self.contentView.bounds];
-    [self.upperView addSubview:self.textLabel];
-    [self.upperView addSubview:self.detailTextLabel];
-    self.upperView.backgroundColor = [UIColor whiteColor];
-    [self.contentView addSubview:self.upperView];
-}
-
-- (void)setupButton
-{
-    self.confirmButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [self.confirmButton setTitle:@"Send" forState:UIControlStateNormal];
-    [self.confirmButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.confirmButton.backgroundColor = [UIColor greenColor];
-    self.confirmButton.frame = CGRectMake(self.contentView.bounds.size.width - BUTTON_WIDTH, 0, BUTTON_WIDTH, self.contentView.bounds.size.height);
-    [self.confirmButton addTarget:self
-                           action:@selector(confirmButtonTapped)
-                 forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.confirmButton];
-    [self.contentView sendSubviewToBack:self.confirmButton];
 }
 
 - (void)setup
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    [self setupButton];
-    [self setupUpperView];
-    self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                 action:@selector(tappedCell:)];
-    [self addGestureRecognizer:self.tapRecognizer];
+    [self addConfirmButton];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -109,6 +98,8 @@
     [self setup];
 }
 
+#pragma mark - Tap
+
 - (void)tappedCell:(UIGestureRecognizer *)gesture
 {
     if (!self.confirmed)
@@ -119,7 +110,43 @@
 {
     if (self.confirmationBlock)
         self.confirmationBlock();
-    self.slidedIn = NO;
+    self.confirmed = YES;
+}
+
+#pragma mark - Table View Cell overrides
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    [super setEditing:editing animated:animated];
+    
+    if (editing) {
+        [self toggleSlideTap:NO];
+    } else {
+        if (!self.confirmed) {
+            [self toggleSlideTap:YES];
+        }
+    }
+}
+
+- (void)toggleSlideTap:(BOOL)on
+{
+    if (on) {
+        if (!self.tapRecognizer) {
+            self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                         action:@selector(tappedCell:)];
+            [self addGestureRecognizer:self.tapRecognizer];
+        }
+    } else {
+        [self removeGestureRecognizer:self.tapRecognizer];
+        self.tapRecognizer = nil;
+        [self.confirmButton removeFromSuperview];
+    }
+}
+
+- (void)didTransitionToState:(UITableViewCellStateMask)state
+{
+    if (state == UITableViewCellStateDefaultMask)
+        [self.contentView addSubview:self.confirmButton];
 }
 
 @end

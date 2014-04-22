@@ -176,9 +176,10 @@ static int maxResponseCount = 0;
     self.acceptingResponses = NO;
     [self stopTesting];
     
-    [[ICSRemoteClient sharedManager] sendEvent:@"CloseQuestion"
-                                      withData:@{@"id": self.question.objectId}
-                                      callback:nil];
+    if (self.question.objectId)
+        [[ICSRemoteClient sharedManager] sendEvent:@"CloseQuestion"
+                                          withData:@{@"id": self.question.objectId}
+                                          callback:nil];
 }
 
 - (IBAction)choiceLabelTapped:(UITapGestureRecognizer *)sender {
