@@ -95,7 +95,7 @@
 #pragma mark - Drawing
 
 #define X_PADDING 10
-#define Y_PADDING 20
+#define Y_PADDING 40
 
 - (void)drawRect:(CGRect)rect
 {
