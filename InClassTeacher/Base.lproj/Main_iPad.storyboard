@@ -21,7 +21,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4zz-cm-Rpr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-360" y="-1145"/>
+            <point key="canvasLocation" x="-740" y="-1273"/>
         </scene>
         <!--Question List View Controller - Questions-->
         <scene sceneID="w4Y-c6-pRu">
@@ -119,7 +119,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kg8-Rd-QU3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="305" y="-903"/>
+            <point key="canvasLocation" x="-75" y="-1031"/>
         </scene>
         <!--New Question View Controller-->
         <scene sceneID="9EY-aC-cvA">
@@ -226,7 +226,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sOm-WS-nNs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="1HS-D4-sE2" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="916" y="-1096"/>
+            <point key="canvasLocation" x="536" y="-1224"/>
         </scene>
         <!--Topic List View Controller - Topics-->
         <scene sceneID="KVW-fn-7Kj">
@@ -317,7 +317,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VUj-2M-4pi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="305" y="-1885"/>
+            <point key="canvasLocation" x="-75" y="-2013"/>
         </scene>
         <!--Teacher Dashboard View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -351,7 +351,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-225" y="265"/>
+            <point key="canvasLocation" x="-605" y="137"/>
         </scene>
         <!--Question View Controller-->
         <scene sceneID="C8Z-0c-fwF">
@@ -466,31 +466,41 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Q3Z-uU-8yO">
-                                <rect key="frame" x="20" y="1002" width="728" height="2"/>
+                                <rect key="frame" x="20" y="1002" width="691" height="2"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </progressView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHz-Ke-9dj">
+                                <rect key="frame" x="719" y="992" width="29" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Jhl-nv-7kQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="14L-uQ-mDc"/>
                             <constraint firstAttribute="trailing" secondItem="Jhl-nv-7kQ" secondAttribute="trailing" constant="20" symbolic="YES" id="4FL-US-dtj"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mHz-Ke-9dj" secondAttribute="trailing" constant="20" id="4lj-nm-UOg"/>
                             <constraint firstItem="WRc-Wv-RHC" firstAttribute="leading" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="88g-HY-ti1"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Jhl-nv-7kQ" secondAttribute="trailing" constant="20" symbolic="YES" id="EH5-jV-pf9"/>
+                            <constraint firstItem="PyG-aV-34w" firstAttribute="top" secondItem="mHz-Ke-9dj" secondAttribute="bottom" constant="11" id="F7H-Is-ZBw"/>
                             <constraint firstItem="YtW-SR-YaE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="FUp-Cs-uKR"/>
                             <constraint firstItem="YtW-SR-YaE" firstAttribute="top" secondItem="zfI-bt-0qn" secondAttribute="bottom" constant="8" symbolic="YES" id="Gp2-yb-twe"/>
                             <constraint firstItem="zfI-bt-0qn" firstAttribute="top" secondItem="QYg-C7-uxf" secondAttribute="bottom" constant="8" symbolic="YES" id="HfK-Xu-Lt6"/>
                             <constraint firstItem="Jhl-nv-7kQ" firstAttribute="leading" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="IWM-Xa-Q2C"/>
                             <constraint firstAttribute="trailing" secondItem="WRc-Wv-RHC" secondAttribute="trailing" constant="20" symbolic="YES" id="JGk-Fw-h0x"/>
+                            <constraint firstAttribute="trailing" secondItem="mHz-Ke-9dj" secondAttribute="trailing" constant="20" id="M2k-Tu-Jgc"/>
                             <constraint firstItem="Jhl-nv-7kQ" firstAttribute="top" secondItem="zfI-bt-0qn" secondAttribute="bottom" constant="8" symbolic="YES" id="Nux-xk-neU"/>
                             <constraint firstItem="YtW-SR-YaE" firstAttribute="leading" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="Ofh-HO-iXH"/>
                             <constraint firstAttribute="trailing" secondItem="YtW-SR-YaE" secondAttribute="trailing" constant="20" symbolic="YES" id="Ufd-kX-PGk"/>
                             <constraint firstItem="QYg-C7-uxf" firstAttribute="top" secondItem="zJS-Xz-FW5" secondAttribute="top" constant="20" symbolic="YES" id="VyV-bg-9iZ"/>
                             <constraint firstItem="QYg-C7-uxf" firstAttribute="trailing" secondItem="zfI-bt-0qn" secondAttribute="trailing" id="Xih-cx-TQi"/>
-                            <constraint firstAttribute="trailing" secondItem="Q3Z-uU-8yO" secondAttribute="trailing" constant="20" id="Ybe-r1-6hK"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zfI-bt-0qn" secondAttribute="trailing" constant="20" symbolic="YES" id="Ylo-Vg-dlq"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YtW-SR-YaE" secondAttribute="trailing" constant="20" symbolic="YES" id="d03-Zf-gwi"/>
                             <constraint firstItem="WRc-Wv-RHC" firstAttribute="top" secondItem="YtW-SR-YaE" secondAttribute="bottom" constant="8" symbolic="YES" id="dd2-TR-HJY"/>
                             <constraint firstItem="Q3Z-uU-8yO" firstAttribute="top" secondItem="WRc-Wv-RHC" secondAttribute="bottom" constant="8" symbolic="YES" id="fHS-rC-BdP"/>
+                            <constraint firstItem="mHz-Ke-9dj" firstAttribute="leading" secondItem="Q3Z-uU-8yO" secondAttribute="trailing" constant="8" symbolic="YES" id="lFb-qU-Hwh"/>
                             <constraint firstItem="Q3Z-uU-8yO" firstAttribute="leading" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" id="pEf-IU-khW"/>
                             <constraint firstAttribute="trailing" secondItem="zfI-bt-0qn" secondAttribute="trailing" constant="20" symbolic="YES" id="q7I-GY-YB0"/>
                             <constraint firstItem="zfI-bt-0qn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zJS-Xz-FW5" secondAttribute="leading" constant="20" symbolic="YES" id="r3Q-j4-UjG"/>
@@ -507,6 +517,7 @@
                         <outlet property="choice4Label" destination="XMg-L6-DEB" id="8Bl-Hk-9lp"/>
                         <outlet property="multipleChoiceView" destination="YtW-SR-YaE" id="Yyp-Gg-pnm"/>
                         <outlet property="questionLabel" destination="zfI-bt-0qn" id="6l6-ag-KsZ"/>
+                        <outlet property="responseCountLabel" destination="mHz-Ke-9dj" id="vCA-xV-GUh"/>
                         <outlet property="responseCountProgressView" destination="Q3Z-uU-8yO" id="4dc-4e-nDQ"/>
                         <outlet property="titleLabel" destination="QYg-C7-uxf" id="OpO-gd-Djc"/>
                         <outlet property="trueFalseView" destination="Jhl-nv-7kQ" id="nja-4E-7hx"/>
@@ -534,7 +545,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="808" y="254"/>
+            <point key="canvasLocation" x="268" y="123"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="34z-Jf-pql">
@@ -548,7 +559,7 @@
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QNT-bG-Jeq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1345" y="-361"/>
+            <point key="canvasLocation" x="-1725" y="-489"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -557,6 +568,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="elU-XC-nAj"/>
+        <segue reference="1dk-0K-Z1l"/>
     </inferredMetricsTieBreakers>
 </document>

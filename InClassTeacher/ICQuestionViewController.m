@@ -28,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIProgressView *responseCountProgressView;
 @property (nonatomic) int responseCount;
 @property (weak, nonatomic) NSTimer *testTimer;
+@property (weak, nonatomic) IBOutlet UILabel *responseCountLabel;
 
 @end
 
@@ -42,6 +43,7 @@ static int maxResponseCount = 0;
     _responseCount = responseCount;
     if (responseCount > maxResponseCount) maxResponseCount = responseCount;
     self.responseCountProgressView.progress = (float)responseCount/(float)maxResponseCount;
+    self.responseCountLabel.text = [@(responseCount) stringValue];
 }
 
 - (ICSRemoteClient *)remoteClient
